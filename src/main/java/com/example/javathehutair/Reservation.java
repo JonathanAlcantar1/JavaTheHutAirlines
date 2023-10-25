@@ -1,9 +1,6 @@
 package com.example.javathehutair;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class Reservation
     // Added url,username,password to be passed into getConnection() --> just to make it look less crowded
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private ResultSet result;
 
 
     public void setFlightID(int flightID){
@@ -148,6 +146,31 @@ public class Reservation
             throw new IllegalArgumentException(e);
         }
 
+    }
+
+    /*
+Given the specific flightID, firstName, lastName and email, we will match this information
+that is in the SQL reservationTable and check if there is a row that exists with these information.
+If it does we will return a result set of the entire row to be used within the PDF output or(text output)
+
+ */
+    public ResultSet getReservationRow(int flightID, String firstName, String lastName, String email) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE flightID LIKE ? AND firstName LIKE ? AND lastName LIKE ? AND email LIKE ?";
+        preparedStatement = connection.prepareStatement(query);
+        try {
+            preparedStatement.setInt(1, flightID);
+            preparedStatement.setString(2, "%" + firstName + "%");
+            preparedStatement.setString(3, "%" + lastName + "%");
+            preparedStatement.setString(4, "%" + email + "%");
+
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
     }
 
     public void printResList(List<Reservation> res)

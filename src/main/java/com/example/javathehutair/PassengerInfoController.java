@@ -82,6 +82,27 @@ public class PassengerInfoController {
      * This method stores pax reservation info and adds the info into a list after the submit button is clicked
      * @param event
      */
+
+    private void setCurrCabinID(int cabinID){
+        this.cabinID = cabinID;
+    }
+
+    /**
+     * Method sets currCabinID when customer selects their designated cabin class
+     * @return
+     */
+
+    public int getCurrCabinID(){
+        return cabinID;
+    }
+
+    /*
+    When the user clicks a button (either first class, business, economy etc), that specific actionEvent will assign cabinID to its specific cabinID number
+    then we can just use getCurrCabinID during the addReservation
+     */
+
+
+
     @FXML
     void clickSubmit(ActionEvent event)
     {
@@ -98,7 +119,7 @@ public class PassengerInfoController {
             email = emailTxt.getText();
 
             // Adds reservation data into a list
-            reservation.addReservation(flightID, cabinID, firstName, lastName, dateOfBirth, phoneNum, address, email);
+            reservation.addReservation(flightID, cabinID, firstName, lastName, dateOfBirth, phoneNum, address, email);  // We would replace cabinID here with getCurrcabinID()
 
             // Clears all the text fields
             fNameTxt.clear();
