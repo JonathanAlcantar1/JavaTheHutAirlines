@@ -149,7 +149,7 @@ public class PassengerInfoController {
         paxNumLabel.setText(String.valueOf(paxLabelCounter));
 
         // Print Test to see if pax reservation info is being added to list
-        reservation.printResList(reservation.getReservations());
+        reservation.printResList(reservation.getReservationList());
 
 
     }
