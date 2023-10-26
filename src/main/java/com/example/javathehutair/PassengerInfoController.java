@@ -59,6 +59,7 @@ public class PassengerInfoController {
     String firstName, lastName, dateOfBirth, phoneNum, address, email;
     int paxLabelCounter = 1;
     Reservation reservation = new Reservation();
+    FlightCabin flightCabin;
 
     /**
      * Method sets the flightID
@@ -80,7 +81,7 @@ public class PassengerInfoController {
 
     /**
      * This method stores pax reservation info and adds the info into a list after the submit button is clicked
-     * @param event
+     * @param cabinID
      */
 
     private void setCurrCabinID(int cabinID){
@@ -89,7 +90,7 @@ public class PassengerInfoController {
 
     /**
      * Method sets currCabinID when customer selects their designated cabin class
-     * @return
+     * @return cabinID
      */
 
     public int getCurrCabinID(){
@@ -101,8 +102,39 @@ public class PassengerInfoController {
     then we can just use getCurrCabinID during the addReservation
      */
 
+    /**
+     * This method will get and set the cabinID depending on what cabin button the user selects.
+     * @param event
+     */
+    @FXML
+    void clickCabinButton(ActionEvent event)
+    {
+        // Needs method to extract cabinID from database
+        // flightCabin.getCabinID
+        // or we can hard code the cabinID using setCurrCabinID()
+
+        if (event.getSource() == firstClassButton)
+        {
+            System.out.println("First Class Cabin Button Pressed");
+        }
+        else if(event.getSource() == businessButton)
+        {
+            // Needs method to extract cabinID from database
+            System.out.println("Business Class Cabin Button Pressed");
+        }
+        else if(event.getSource() == economyButton)
+        {
+            // Needs method to extract cabinID from database
+            System.out.println("Economy Class Cabin Button Pressed");
+        }
+
+    }
 
 
+    /**
+     * This method stores pax reservation info and adds the info into a list after the submit button is clicked
+     * @param event
+     */
     @FXML
     void clickSubmit(ActionEvent event)
     {
@@ -117,6 +149,7 @@ public class PassengerInfoController {
             phoneNum = pNumTxt.getText();
             address = addressTxt.getText();
             email = emailTxt.getText();
+            cabinID = getCurrCabinID();
 
             // Adds reservation data into a list
             reservation.addReservation(flightID, cabinID, firstName, lastName, dateOfBirth, phoneNum, address, email);  // We would replace cabinID here with getCurrcabinID()
@@ -140,7 +173,7 @@ public class PassengerInfoController {
             Stage primaryStage = (Stage) node.getScene().getWindow();
             primaryStage.hide();
 
-            // TODO: Should Open Cart scene
+            // TODO: Should Open CHECKOUT scene
         }
 
 
