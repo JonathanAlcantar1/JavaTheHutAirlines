@@ -13,17 +13,16 @@ public class Flight
     /**
      * Local Class Variables
      */
-    int flightID;
-    String departureLocation;
-    String arrivalLocation;
-    String departureDate;
-    String arrivalDate;
-    String departureTime;
-    String arrivalTime;
-    int currFirstSeats;
-    int currBusinessSeats;
-    int currEconomySeats;
-
+    private int flightID;
+    private String departureLocation;
+    private String arrivalLocation;
+    private String departureDate;
+    private String arrivalDate;
+    private String departureTime;
+    private String arrivalTime;
+    private int currFirstSeats;
+    private int currBusinessSeats;
+    private int currEconomySeats;
 
     /**
      * Constructor
