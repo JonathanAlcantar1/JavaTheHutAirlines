@@ -138,7 +138,7 @@ public class Reservation
                     currSeat.seatDecrementor(currRes.getFlightID(), currRes.getClassID());
                 }
                 else{
-                    System.out.println(-1);
+                    System.out.println(-1); // Redefine error checking
                 }
             }
         }
@@ -186,15 +186,18 @@ If it does we will return a result set of the entire row to be used within the P
             preparedStatement.setString(2, "%" + lastName + "%");
 
             result = preparedStatement.executeQuery();
-            preparedStatement.close();
-            connection.close();
         }
         catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
         return result;
     }
+    /*
+    Seat incrementor. how do we get the flightID and cabinID to increment the seat?
+     */
     public void cancelReservation(String reservationID, String lastName) throws SQLException{
+        ResultSet res = getReservation(reservationID, lastName);
+
         connection = DriverManager.getConnection(url, username, password);
         query = "DELETE FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
         preparedStatement = connection.prepareStatement(query);
@@ -203,7 +206,6 @@ If it does we will return a result set of the entire row to be used within the P
             preparedStatement.setString(1, reservationID);
             preparedStatement.setString(2, lastName);
             preparedStatement.executeQuery();
-
             try{
                 result = getReservation(reservationID, lastName);
                 if(!result.next()){
