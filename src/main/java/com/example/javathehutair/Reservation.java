@@ -196,19 +196,23 @@ If it does we will return a result set of the entire row to be used within the P
     Seat incrementor. how do we get the flightID and cabinID to increment the seat?
      */
     public void cancelReservation(String reservationID, String lastName) throws SQLException{
-        ResultSet res = getReservation(reservationID, lastName);
-
         connection = DriverManager.getConnection(url, username, password);
+        result = getReservation(reservationID, lastName);
+        result.next();
+        int currFlightID = result.getInt("flightID");
+        int currClassID = result.getInt("classID");
         query = "DELETE FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
         preparedStatement = connection.prepareStatement(query);
         outter:
         try{
-            preparedStatement.setString(1, reservationID);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.executeQuery();
+            preparedStatement.setString(1, "%" + reservationID + "%");
+            preparedStatement.setString(2, "%" + lastName + "%");
+            preparedStatement.execute();
+
             try{
                 result = getReservation(reservationID, lastName);
                 if(!result.next()){
+                    currSeat.seatIncrementor(currFlightID, currClassID);
                     break outter;
                 }
             }
