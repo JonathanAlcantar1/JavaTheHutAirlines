@@ -21,3 +21,7 @@ public class MainApplication extends Application {
         launch();
     }
 }
+
+/*
+    TODO: Flight Search Date Checker. Only display flights that are in the database from the chosen date onward.
+ */

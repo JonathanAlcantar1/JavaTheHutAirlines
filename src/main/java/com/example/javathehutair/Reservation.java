@@ -89,7 +89,7 @@ public class Reservation
         reservations.add(newReservation);
     }
     // Getter for getting the current list of reservations that will be added using the ^^, addReservation
-    public List<Reservation> getReservations(){
+    public List<Reservation> getReservationList(){
         return reservations;
     }
 
@@ -138,7 +138,7 @@ public class Reservation
                     currSeat.seatDecrementor(currRes.getFlightID(), currRes.getClassID());
                 }
                 else{
-                    System.out.println(-1);
+                    System.out.println(-1); // Redefine error checking
                 }
             }
         }
@@ -153,6 +153,8 @@ Given the specific flightID, firstName, lastName and email, we will match this i
 that is in the SQL reservationTable and check if there is a row that exists with these information.
 If it does we will return a result set of the entire row to be used within the PDF output or(text output)
 
+ the getReservationRow() is intended to be used when the actual reservationID isnt known yet, so will be used
+ after a specific reservation is added onto the database
  */
     public ResultSet getReservationRow(int flightID, String firstName, String lastName, String email) throws SQLException{
         connection = DriverManager.getConnection(url, username, password);
@@ -171,6 +173,56 @@ If it does we will return a result set of the entire row to be used within the P
             throw new RuntimeException(e.getMessage());
         }
         return result;
+    }
+    /*
+    getReservation() is used when the actual reservationID is known.
+     */
+    public ResultSet getReservation(String reservationID, String lastName) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
+        preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setString(1, "%" + reservationID + "%");
+            preparedStatement.setString(2, "%" + lastName + "%");
+
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+    /*
+    Seat incrementor. how do we get the flightID and cabinID to increment the seat?
+     */
+    public void cancelReservation(String reservationID, String lastName) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+        result = getReservation(reservationID, lastName);
+        result.next();
+        int currFlightID = result.getInt("flightID");
+        int currClassID = result.getInt("classID");
+        query = "DELETE FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
+        preparedStatement = connection.prepareStatement(query);
+        outter:
+        try{
+            preparedStatement.setString(1, "%" + reservationID + "%");
+            preparedStatement.setString(2, "%" + lastName + "%");
+            preparedStatement.execute();
+
+            try{
+                result = getReservation(reservationID, lastName);
+                if(!result.next()){
+                    currSeat.seatIncrementor(currFlightID, currClassID);
+                    break outter;
+                }
+            }
+            catch(Exception e){
+                throw new IllegalArgumentException("Reservation was not cancelled. Reservation still exists.");
+            }
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("Incorrect Reservation or ID was inputted.");
+        }
     }
 
     public void printResList(List<Reservation> res)
