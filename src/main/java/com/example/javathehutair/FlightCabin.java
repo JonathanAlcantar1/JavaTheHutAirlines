@@ -207,7 +207,7 @@ public class FlightCabin
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, currSeatNum);
             preparedStatement.setInt(2, flightID);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         }
         else{
             throw new IllegalArgumentException("Error! Economy seats are full, possible overbooking occured.");
