@@ -13,7 +13,7 @@
       <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
          <children>
             <ImageView fitHeight="185.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
+            <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" onAction="#clickSearchFlights" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
