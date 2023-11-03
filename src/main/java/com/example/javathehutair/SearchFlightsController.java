@@ -244,4 +244,28 @@ public class SearchFlightsController {
         }
 
     }
+    @FXML
+    public void clickCancelFlights(ActionEvent event) throws IOException {
+        //closing the current stage
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+        primaryStage.close();
+        //loading search flights fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cancelFlights_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
+        //opening search flights stage
+        Stage stage = new Stage();
+        stage.setTitle("Search Flights");
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void clickManagersInfo(ActionEvent event) throws IOException {
+
+    }
+    //Opens AboutUs page when clicked on sidebar
+    @FXML
+    public void clickAboutUs(ActionEvent event) throws IOException{
+
+    }
 }
