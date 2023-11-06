@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Date;
 import javafx.stage.Stage;
 
@@ -52,6 +53,11 @@ public class SearchFlightsController {
     @FXML
     private Button selectFlightButton;
 
+    @FXML
+    private DatePicker arrivalButton;
+
+    @FXML
+    private DatePicker departureButton;
 
     @FXML
     private TableView<Flight> flightsTable;
@@ -112,12 +118,21 @@ public class SearchFlightsController {
             FlightSearcher flightSearcher = new FlightSearcher(); // creates instance of FlightSearcher
             String departure = depTxtField.getText(); // gets text from departure txt field
             String arrival = arrTxtField.getText(); // gets text from arrival txt field
+            LocalDate departureDate = departureButton.getValue(); //gets date from departure datepicker
+            LocalDate arrivalDate = arrivalButton.getValue(); //gets date from arrival date picker
+
             paxNum = Integer.parseInt(noPaxTxtField.getText());
             int numOfTickets = Integer.parseInt(noPaxTxtField.getText());
-
-            // creates a ResultSet using the flightSearcher object
-            ResultSet resultSet = flightSearcher.searchAllFlights(departure, arrival, numOfTickets);
-
+           //if no date is specified do a general search
+            if (departureDate == null && arrivalDate == null) {
+                // creates a ResultSet using the flightSearcher object
+                ResultSet resultSet = flightSearcher.searchAllFlights(departure, arrival, numOfTickets);
+                setResultSet(resultSet);
+            }
+            else {
+                ResultSet resultSet = flightSearcher.searchAllFlights(departure, arrival, numOfTickets, departureDate, arrivalDate);
+                setResultSet(resultSet);
+            }
             // iterates through the resultSet
             while (resultSet.next())
             {
@@ -216,6 +231,7 @@ public class SearchFlightsController {
      * @param event
      * @throws IOException
      */
+
     @FXML
     void clickSelectFlightButton(ActionEvent event) throws IOException {
         if(mouseClickCounter > 0)
@@ -267,5 +283,9 @@ public class SearchFlightsController {
     @FXML
     public void clickAboutUs(ActionEvent event) throws IOException{
 
+    }
+
+    public void setResultSet(ResultSet resultSet){
+        this.resultSet = resultSet;
     }
 }
