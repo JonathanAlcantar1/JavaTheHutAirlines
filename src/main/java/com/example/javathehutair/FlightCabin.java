@@ -5,15 +5,15 @@ import java.util.List;
 
 public class FlightCabin
 {
-    private int currFlightID, totalReservationPrice;
+    private int totalReservationPrice;
     private int currIndex =0;
     private String query;
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet result = null;
-    private String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private String username = "admin";
-    private String password = "!Javathehut23";
+    private final String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
+    private final String username = "admin";
+    private final String password = "!Javathehut23";
 
     // These three getters will mostly be used to return current available seats based on their cabins & can be found with a flightID
     public int getCurrEconomySeat(int flightID) throws SQLException {
@@ -74,7 +74,7 @@ public class FlightCabin
     these cabin seat decrementers will be used along with seatDecrementor() to be used to decrease specific cabin seats in their specific flights
     minus 1. As long as the flights cabin seat is more than 0, it will be able to do so.
      */
-    public void economySeatDecrementer(int flightID) throws SQLException{
+    private void economySeatDecrementer(int flightID) throws SQLException{
         connection = DriverManager.getConnection(url, username, password);
         int currSeatNum = getCurrEconomySeat(flightID);
 
@@ -91,7 +91,7 @@ public class FlightCabin
         }
     }
 
-    public void businessSeatDecrementer(int flightID) throws SQLException{
+    private void businessSeatDecrementer(int flightID) throws SQLException{
         connection = DriverManager.getConnection(url, username, password);
         int currSeatNum = getCurrBusinessSeat(flightID);
 
@@ -109,7 +109,7 @@ public class FlightCabin
         }
     }
 
-    public void firstSeatDecrementer(int flightID) throws SQLException{
+    private void firstSeatDecrementer(int flightID) throws SQLException{
         connection = DriverManager.getConnection(url, username, password);
         int currSeatNum = getCurrFirstSeat(flightID);
 
@@ -146,6 +146,90 @@ public class FlightCabin
                 businessSeatDecrementer(flightID);
             } else if (currClass.equals("Economy Class")) {
                 economySeatDecrementer(flightID);
+            }
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("Unexpected error has occured.");
+        }
+    }
+ /*
+ TODO: make individual cabin seat incrementors which will furthermore be used to the main
+  seatIncrementor()
+   --> Then use seatDecrementor for Reservation.class under the nested try catch
+  */
+    private void economySeatIncrementor(int flightID) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+        int currSeatNum = getCurrEconomySeat(flightID);
+
+        if(currSeatNum < 10){
+            currSeatNum = currSeatNum + 1;
+
+            query = "UPDATE airlineDatabase.flightsTable SET currEconomySeats = ? WHERE flightID = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currSeatNum);
+            preparedStatement.setInt(2, flightID);
+            preparedStatement.executeUpdate();
+        }
+        else{
+            throw new IllegalArgumentException("Error! Economy seats are full, possible overbooking occured.");
+        }
+    }
+
+    private void businessSeatIncrementor(int flightID) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+
+        int currSeatNum = getCurrBusinessSeat(flightID);
+
+        if(currSeatNum < 10){
+            currSeatNum = currSeatNum + 1;
+
+            query = "UPDATE airlineDatabase.flightsTable SET currBusinessSeats = ? WHERE flightID = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currSeatNum);
+            preparedStatement.setInt(2, flightID);
+            preparedStatement.executeUpdate();
+
+        }
+        else{
+            throw new IllegalArgumentException("Error! Economy seats are full, possible overbooking occured.");
+        }
+    }
+
+    private void firstSeatIncrementor(int flightID) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+
+        int currSeatNum = getCurrFirstSeat(flightID);
+
+        if(currSeatNum < 10){
+            currSeatNum = currSeatNum + 1;
+
+            query = "UPDATE airlineDatabase.flightsTable SET currFirstSeats = ? WHERE flightID = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currSeatNum);
+            preparedStatement.setInt(2, flightID);
+            preparedStatement.executeQuery();
+        }
+        else{
+            throw new IllegalArgumentException("Error! Economy seats are full, possible overbooking occured.");
+        }
+    }
+
+    public void seatIncrementor(int flightID, int classID) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+        query = "SELECT classStatus FROM airlineDatabase.seatClasses WHERE classID = ?";
+        preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setInt(1, classID);
+        result = preparedStatement.executeQuery();
+        result.next();
+        String currClass = result.getString(1);
+        try {
+            if (currClass.equals("First Class")) {
+                firstSeatIncrementor(flightID);
+            } else if (currClass.equals("Business Class")) {
+                businessSeatIncrementor(flightID);
+            } else if (currClass.equals("Economy Class")) {
+                economySeatIncrementor(flightID);
             }
         }
         catch(Exception e){
