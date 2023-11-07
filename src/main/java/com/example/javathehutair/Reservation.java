@@ -24,9 +24,7 @@ public class Reservation
     public void setFlightID(int flightID){
         this.flightID = flightID;
     }
-    public int getFlightID(){
-        return flightID;
-    }
+    public int getFlightID(){return flightID;}
     public void setClassID(int classID){
         this.classID = classID;
     }

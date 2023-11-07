@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -15,26 +16,41 @@
     <children>
       <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
          <children>
-            <ImageView fitHeight="185.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoImage" fitHeight="205.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/jtha-logo-transparent-png.png" />
+               </image></ImageView>
             <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="cancelFlightsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="166.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Cancel Flight" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="managersButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Managers" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="aboutUsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="About Us" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
          </children>
       </VBox>
