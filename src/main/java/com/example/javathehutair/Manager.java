@@ -15,7 +15,7 @@ public class Manager {
             String dbUsername, dbPassword;
             connection = DriverManager.getConnection(url, username, password);
 
-            query = "SELECT * FROM airlineDatabase.adminTable WHERE username LIKE ? & password LIKE ?";
+            query = "SELECT * FROM airlineDatabase.adminTable WHERE username LIKE ? AND password LIKE ?";
 
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
