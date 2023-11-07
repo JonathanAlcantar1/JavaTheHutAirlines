@@ -358,6 +358,21 @@ public class SearchFlightsController {
         stage.show();
     }
     @FXML
+    public void clickManagerLogin(ActionEvent event) throws IOException {
+        //closing the current stage
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+        primaryStage.close();
+        //loading search flights fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
+        //opening search flights stage
+        Stage stage = new Stage();
+        stage.setTitle("Manager Login");
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
     public void clickManagersInfo(ActionEvent event) throws IOException {
 
     }
