@@ -7,35 +7,51 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.SearchFlightsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.SearchFlightsController">
     <children>
       <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
          <children>
-            <ImageView fitHeight="185.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoImage" fitHeight="205.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/jtha-logo-transparent-png.png" />
+               </image></ImageView>
             <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="cancelFlightsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickCancelFlights" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Cancel Flight" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="managersButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Managers" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
             <Button fx:id="aboutUsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="About Us" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Elephant" size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </Button>
          </children>
       </VBox>
@@ -49,14 +65,14 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="610.0" layoutY="14.0" text="Search Flights" textFill="#2e5a88">
+      <Label layoutX="611.0" text="Search Flights" textFill="#2e5a88">
          <font>
             <Font name="Elephant" size="40.0" />
          </font>
       </Label>
       <TextField fx:id="depTxtField" layoutX="350.0" layoutY="64.0" />
       <TextField fx:id="arrTxtField" layoutX="628.0" layoutY="64.0" />
-      <Button fx:id="searchButton" layoutX="912.0" layoutY="112.0" mnemonicParsing="false" onAction="#clickSearchButton" prefHeight="25.0" prefWidth="77.0" text="Search" />
+      <Button fx:id="searchButton" layoutX="826.0" layoutY="112.0" mnemonicParsing="false" onAction="#clickSearchButton" prefHeight="25.0" prefWidth="77.0" text="Search" />
       <Label layoutX="826.0" layoutY="64.0" text="No. of pax:">
          <font>
             <Font size="16.0" />
@@ -77,7 +93,7 @@
             <TableColumn fx:id="econClassCol" minWidth="0.0" prefWidth="73.0" text="Econ. Seats" />
         </columns>
       </TableView>
-      <Button fx:id="selectFlightButton" layoutX="1062.0" layoutY="92.0" mnemonicParsing="false" onAction="#clickSelectFlightButton" prefHeight="25.0" prefWidth="91.0" text="Select Flight" />
+      <Button fx:id="selectFlightButton" layoutX="940.0" layoutY="112.0" mnemonicParsing="false" onAction="#clickSelectFlightButton" prefHeight="25.0" prefWidth="91.0" text="Select Flight" />
       <DatePicker fx:id="arrivalButton" layoutX="628.0" layoutY="111.0" prefHeight="26.0" prefWidth="161.0" />
       <DatePicker fx:id="departureButton" layoutX="350.0" layoutY="111.0" prefHeight="26.0" prefWidth="158.0" />
       <Label layoutX="233.0" layoutY="114.0" text="Departure Date:">
