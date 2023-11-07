@@ -84,13 +84,13 @@ public class CheckoutController {
      * @throws SQLException
      */
     public void setSummary() throws SQLException {
-        flightIDLabel.setText("Flight ID: " + reservation.getReservations().get(0).getFlightID());
+        flightIDLabel.setText("Flight ID: " + reservation.getReservationList().get(0).getFlightID());
 
         // TODO: Methods to get the departure city and arrival city
 //        fromToLabel.setText("From: " + reservation.getDeparture() + " " + "To: " + reservation.getArrival());
 
         noOfPaxLabel.setText("Number of Passengers: " + reservation.getReservationSize());
-        totalLabel.setText("Total Price: $" + flightCabin.totalReservationPrice(reservation.getReservations()) + ".00");
+        totalLabel.setText("Total Price: $" + flightCabin.totalReservationPrice(reservation.getReservationList()) + ".00");
     }
 
 
