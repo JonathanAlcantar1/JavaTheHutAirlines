@@ -1,9 +1,6 @@
 package com.example.javathehutair;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class FlightSearcher
 {
@@ -13,13 +10,13 @@ public class FlightSearcher
         return databaseQuery(sql, departure, arrival, numTickets);
     }
     //searching for flights with the specified amount of first class seats given a departure and arrival location
-    public ResultSet searchFirstClassFlights(String departure, String arrival, int numTickets){
+    public ResultSet searchFirstClassFlights(String departure, String arrival, int numTickets) {
         //String sql = "SELECT * FROM flightsTable WHERE departureLocation=? AND arrivalLocation=? AND (currFirstSeats >= ?)";
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currFirstSeats>=?)";
         return databaseQuery(sql, departure, arrival, numTickets);
     }
     //searching for flights with the specified amount of business class seats given a departure and arrival location
-    public ResultSet searchBusinessClassFlights(String departure, String arrival, int numTickets){
+    public ResultSet searchBusinessClassFlights(String departure, String arrival, int numTickets) {
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currBusinessSeats >= ?)";
         return databaseQuery(sql, departure, arrival, numTickets);
     }
