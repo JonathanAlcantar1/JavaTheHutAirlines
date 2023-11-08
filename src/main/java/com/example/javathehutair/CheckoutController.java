@@ -17,6 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 public class CheckoutController {
     @FXML
@@ -36,6 +39,9 @@ public class CheckoutController {
 
     @FXML
     private Button submitButton;
+
+    @FXML
+    private TextField expirationDate;
 
     @FXML
     private ImageView cardsImage;
@@ -60,7 +66,8 @@ public class CheckoutController {
      * Local Variables
      */
     private String fName, lName, mName;
-    private int cvc, creditNum;
+    private long cvc, creditNum;
+    private YearMonth expDate;
     private Checkout checkout = new Checkout();
     private Reservation reservation;
     private String title = "Error";
@@ -134,11 +141,12 @@ public class CheckoutController {
             fName = fnameTxt.getText();
             mName = mNameTxt.getText();
             lName = lNameTxt.getText();
-            cvc = Integer.parseInt(cvcTxt.getText());
-            creditNum = Integer.parseInt(creditNumTxt.getText());
-
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+            expDate = YearMonth.parse(expirationDate.getText(),formatter);
+            cvc = Long.parseLong(cvcTxt.getText());
+            creditNum = Long.parseLong(creditNumTxt.getText());
             // Verifies payment by calling creditCheck method
-            Boolean bool = checkout.creditCheck(fName, mName, lName, cvc, creditNum);
+            boolean bool = checkout.creditCheck(fName, mName, lName, creditNum, cvc, expDate);
 
             if (bool) // if payment was verified
             {
