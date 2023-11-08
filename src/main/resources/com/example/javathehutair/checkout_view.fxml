@@ -103,6 +103,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="expirationDate" layoutX="601.0" layoutY="413.0" prefHeight="26.0" prefWidth="104.0" />
+      <TextField fx:id="expirationDate" layoutX="601.0" layoutY="413.0" prefHeight="26.0" prefWidth="104.0" promptText="MM/YY" />
    </children>
 </AnchorPane>
