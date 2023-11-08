@@ -7,17 +7,17 @@ public class Manager {
     private final String username = "admin";
     private final String password = "!Javathehut23";
     private Connection connection;
+    private String query;
+    private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
     public boolean loginChecker(String username, String password) throws SQLException {
-
         String dbUsername, dbPassword;
-        connection = DriverManager.getConnection(url, this.username, this.password);
-        PreparedStatement preparedStatement = null;
-        String query = "SELECT * FROM airlineDatabase.managerCredentialTable WHERE (username LIKE ?) AND (password LIKE ?)";
+        connection = DriverManager.getConnection(url, username, password);
+
+        query = "SELECT * FROM airlineDatabase.managerCredentialTable WHERE username LIKE ? & password LIKE ?";
+
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
         resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             dbUsername = resultSet.getString("username");
