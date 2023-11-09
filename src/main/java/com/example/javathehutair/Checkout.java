@@ -1,6 +1,4 @@
 package com.example.javathehutair;
-
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 public class Checkout {
