@@ -17,17 +17,17 @@ public class ManagerLoginController {
     @FXML
     private Button loginButton;
     private String username, password;
-    private Manager managerHelper;
 
     @FXML
     void clickLogin(ActionEvent event) throws SQLException {
+        Manager managerHelper = new Manager();
         username = usernameTxt.getText();
         password = passwordTxt.getText();
 
         if(managerHelper.loginChecker(username, password)){
             // open next manager scene to display what the manager can see/do
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(("tes"));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(("Success"));
             alert.setContentText("Username and password were found");
             alert.showAndWait();
         }
