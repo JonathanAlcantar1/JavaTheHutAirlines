@@ -17,10 +17,10 @@ public class ManagerLoginController {
     @FXML
     private Button loginButton;
     private String username, password;
+    private Manager managerHelper;
 
     @FXML
     void clickLogin(ActionEvent event) throws SQLException {
-        Manager managerHelper = new Manager();
         username = usernameTxt.getText();
         password = passwordTxt.getText();
 
