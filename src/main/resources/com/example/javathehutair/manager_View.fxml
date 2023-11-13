@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.ManagerLoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.ManagerViewController">
     <children>
         <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
             <children>
@@ -18,7 +17,7 @@
                     <image>
                         <Image url="@../../../images/jtha-logo-transparent-png.png" />
                     </image></ImageView>
-                <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" onAction="#clickSearchFlights" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
+                <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" onAction="#clickSearchFlights" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
                     <font>
                         <Font name="Elephant" size="16.0" />
                     </font>
@@ -52,18 +51,6 @@
                 </Button>
             </children>
         </VBox>
-        <Text layoutX="626.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manager Login">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <TextField fx:id="usernameTxt" layoutX="621.0" layoutY="159.0" prefHeight="31.0" prefWidth="160.0" promptText="Username" />
-        <TextField fx:id="passwordTxt" layoutX="620.0" layoutY="216.0" prefHeight="31.0" prefWidth="160.0" promptText="Password" />
-        <Text layoutX="419.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember to not share employee login credentials with anyone.">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Text>
-        <Button fx:id="loginButton" layoutX="673.0" layoutY="275.0" onAction="#clickLogin" mnemonicParsing="false" text="LogIn" />
-    </children>
+      <Text layoutX="382.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manager Landing Page after logging in" />
+</children>
 </AnchorPane>

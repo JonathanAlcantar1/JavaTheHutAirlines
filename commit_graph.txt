@@ -1,0 +1,68 @@
+* 8bca2d5 Revert "Merge branch 'testing' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines into testing"
+* a00e833 Revert "Unversioned Files"
+* c147ae3 updated
+* fdf9ae5 repush checkout
+* 92389db added promptext for correct date format
+*   c5f1422 Merge branch 'testing' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines into testing
+|\  
+| *   59b0fb4 Merge branch 'testing' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines into testing
+| |\  
+| * | 5e959ae Unversioned Files
+* | | 2b11e99 checkout bugfix, exp date backend/frontend added
+| |/  
+|/|   
+* | f448737 Fixed manager bug
+|/  
+* d90fe00 Unversioned Files
+*   abb9013 Merge remote-tracking branch 'origin/testing' into testing
+|\  
+| * 3601916 Unversioned Files
+* |   d8ab512 Added isBlank checks to text fields, added some images, and added first version of Checkout and Confirmation
+|\ \  
+| |/  
+|/|   
+* | db6de86 searchflights datepicker frontend & backend
+* | decab29 fixed flight cabin bug
+* | 19e2d1d cancel flights frontend
+| | * f2bf7d7 Unversioned Files
+| | *   1a26f62 Merge branch 'master' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines
+| | |\  
+| | |/  
+| |/|   
+| * | 5a35360 Fixed bug in CheckoutController
+| * |   8ae9fcd Merge branch 'master' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines
+| |\ \  
+| * | | e279173 First version of the CheckoutController, also added a ConfirmationController
+| * | | 67e2a8f Added isBlank checks for text fields and updated to show only cabin buttons with available buttons
+| * | | f0e60ec Added isBlank checks for text fields and added images
+| | | * d5fac9f Manager --> Created method to check username & password ManagerController --> Made the login text to check the input to the validator from the Manager class, which returns a boolean
+| | | * 7be3508 --> FlightCabin : Fixed seatIncrementor
+| | | * 55e52b2 --> FlightCabin : Fixed seatIncrementor
+| |_|/  
+|/| |   
+* | |   6424c22 Merge branch 'master' into testing
+|\ \ \  
+| | |/  
+| |/|   
+| * |   0fdcd5c Merge remote-tracking branch 'origin/master'
+| |\ \  
+| | * | ff8d99f Updated Flight.java
+| * | | 6f6f868 --> FlightCabin : Fixed seatIncrementor
+| * | | 63417f8 --> FlightCabin : Fixed seatIncrementor
+| |/ /  
+| * | 951a3fe --> FlightCabin : Added seat incrementors
+| * | ce6a522 Merge branch 'master' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines
+| |\| 
+| * | 829baa0 --> in Reservation I changed getReservations() to getReservationList(). to show its the list of the current reservations
+* | | 90daeab cancel flights xml and checkout
+| |/  
+|/|   
+* | 0310095 Started cabin class buttons event handler implementation
+* | 5bfad7d Merge branch 'master' of https://github.com/JonathanAlcantar1/JavaTheHutAirlines
+|\| 
+| * c92b1af --> Checkout Class for CheckoutController
+| * a46b0be PassangerInfoController --> Added currCabinID getters & setters       --> Getters and setters will be used by buttons(?) to be set as its current / designated cabin ID (if user clicks firstClassButton, within firstClassButton action, we setCurrCabinID == firstClass ID (from DB)
+| * 3b02e05 Create README.md
+* | 3de1a30 vcs.xml file commit
+|/  
+* 4a4bd7c Initial commit
