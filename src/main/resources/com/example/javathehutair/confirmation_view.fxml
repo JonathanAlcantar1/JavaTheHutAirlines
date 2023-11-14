@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.ConfirmationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.ConfirmationController">
    <children>
       <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
          <children>
@@ -19,10 +20,44 @@
             </ImageView>
          </children>
       </VBox>
-      <Label layoutX="632.0" layoutY="24.0" text="Confirmation" textFill="#2e5a88">
+      <Label layoutX="507.0" layoutY="14.0" text="Booking Confirmation" textFill="#2e5a88">
          <font>
             <Font name="Elephant" size="41.0" />
          </font>
       </Label>
+      <Label layoutX="265.0" layoutY="83.0" prefHeight="23.0" prefWidth="471.0" text="You are all set. Thank you for choosing Java The Hut Airlines!">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="265.0" layoutY="132.0" text="Passengers:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView layoutX="264.0" layoutY="169.0" prefHeight="239.0" prefWidth="762.0" style="-fx-border-color: #fff; -fx-background-color: #fff;">
+         <columns>
+            <TableColumn prefWidth="259.0" text="Name" />
+            <TableColumn minWidth="5.0" prefWidth="264.0" text="Reservation ID" />
+            <TableColumn minWidth="5.0" prefWidth="238.0" text="Cabin Type" />
+         </columns>
+      </TableView>
+      <Label layoutX="265.0" layoutY="423.0" text="Flight Information:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView layoutX="264.0" layoutY="458.0" prefHeight="239.0" prefWidth="762.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF;">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Flight ID" />
+            <TableColumn prefWidth="129.0" text="Departing Location" />
+            <TableColumn prefWidth="110.5" text="Arriving Location" />
+            <TableColumn prefWidth="105.5" text="Departing Time" />
+            <TableColumn prefWidth="111.0" text="Arriving Time" />
+            <TableColumn prefWidth="110.5" text="Departing Date" />
+            <TableColumn prefWidth="119.5" text="Arriving Date" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
+
