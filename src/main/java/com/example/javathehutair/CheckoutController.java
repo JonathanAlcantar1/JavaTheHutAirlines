@@ -74,6 +74,7 @@ public class CheckoutController {
     private String title = "Error";
     private String contentText = "Payment not accepted, please try again";
     private FlightCabin flightCabin = new FlightCabin();
+    private SceneController sceneController = new SceneController();
 
     /**
      * Method sets the reservation
@@ -158,19 +159,7 @@ public class CheckoutController {
                 reservation.flushReservations();
 
                 // Closes the current scene
-                Node node = (Node) event.getSource();
-                Stage primaryStage = (Stage) node.getScene().getWindow();
-                primaryStage.hide();
-
-                // Loads and opens the Checkout scene
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("confirmation_view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-
-                // Opens the Checkout scene
-                Stage stage = new Stage();
-                stage.setTitle("Confirmation");
-                stage.setScene(scene);
-                stage.show();
+                sceneController.switchScene(event,"confirmation_view.fxml","Confirmation");
 
             }
             else // Otherwise if payment cannot be verified
@@ -190,7 +179,5 @@ public class CheckoutController {
             System.out.println("Error while connecting to database");
             e.getStackTrace();
         }
-
-
     }
 }

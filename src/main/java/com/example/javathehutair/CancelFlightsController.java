@@ -39,6 +39,7 @@ public class CancelFlightsController {
     /* local variables */
     private String reservationID;
     private String lastName;
+    private SceneController sceneController = new SceneController();
 
     //Method to cancel a flight reservation given a reservation ID and LastName
     @FXML
@@ -66,38 +67,16 @@ public class CancelFlightsController {
     //Opens SearchFlight page when clicked on sidebar
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Search Flights");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
     @FXML
-    public void clickManagerLogin(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+    public void clickManagersInfo(ActionEvent event) throws IOException {
+        sceneController.switchScene(event, "managerLogin_view.fxml", "Manager Login");
     }
     //Opens AboutUs page when clicked on sidebar
     @FXML
     public void clickAboutUs(ActionEvent event) throws IOException{
-
+        sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
                                    //setters and getters
     public String getReservationID(){
