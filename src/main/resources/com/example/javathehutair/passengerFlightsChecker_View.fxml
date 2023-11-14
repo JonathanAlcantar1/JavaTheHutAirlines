@@ -40,7 +40,7 @@
                         <Insets bottom="30.0" top="30.0" />
                     </padding>
                 </Button>
-                <Button fx:id="aboutUsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="About Us" textFill="WHITE">
+                <Button fx:id="aboutUsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" onAction="#clickAboutUs" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="About Us" textFill="WHITE">
                     <font>
                         <Font name="Elephant" size="16.0" />
                     </font>

@@ -10,64 +10,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PassengerReservationCheckerController {
+    private SceneController sceneController = new SceneController();
     @FXML
     public void clickBackButton(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("manager_View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event,"manager_View.fxml","Manager View");
     }
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Search Flights");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
     @FXML
     public void clickManagerLogin(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "manager_View.fxml", "Manager View");
     }
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cancelFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Cancel Flights");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
+    }
+    public void clickAboutUs(ActionEvent event) throws IOException{
+        sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 }
