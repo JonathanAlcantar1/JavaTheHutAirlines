@@ -1,6 +1,7 @@
 package com.example.javathehutair;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,8 @@ public class Reservation
 {
     private int flightID, classID;
     private int currIndex = 0; // variable used to reference current index that will be initially treated as 0, and reset to 0 after flushReservations()
-    private String firstName, lastName, dob, cellNum, address, email;
+    private String firstName, lastName, cellNum, address, email;
+    private LocalDate dob;
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
     private FlightCabin currSeat = new FlightCabin();
@@ -43,11 +45,11 @@ public class Reservation
     public String getLastName(){
         return lastName;
     }
-    public void setDob(String dob){
+    public void setDob(LocalDate dob){
         this.dob = dob;
     }
-    public String getDob(){
-        return dob;
+    public Date getDob(){
+        return Date.valueOf(dob);
     }
     public void setCellNum(String cellNum){
         this.cellNum = cellNum;
@@ -71,7 +73,7 @@ public class Reservation
     public Reservation(){
     }
     // Constructors for adding Reservations. Will be used for ...
-    public Reservation(int flightID, int classID, String firstName, String lastName, String dob, String cellNum, String address, String email){
+    public Reservation(int flightID, int classID, String firstName, String lastName, LocalDate dob, String cellNum, String address, String email){
         this.flightID = flightID;
         this.classID = classID;
         this.firstName = firstName;
@@ -82,7 +84,7 @@ public class Reservation
         this.email = email;
     }
 
-    public void addReservation(int flightID, int classID, String firstName, String lastName, String dob, String cellNum, String address, String email){
+    public void addReservation(int flightID, int classID, String firstName, String lastName, LocalDate dob, String cellNum, String address, String email){
         Reservation newReservation = new Reservation(flightID, classID, firstName, lastName, dob, cellNum, address, email);
         reservations.add(newReservation);
     }
@@ -126,7 +128,7 @@ public class Reservation
                 preparedStatement.setInt(2, currRes.getClassID());
                 preparedStatement.setString(3, currRes.getFirstName());
                 preparedStatement.setString(4, currRes.getLastName());
-                preparedStatement.setString(5, currRes.getDob());
+                preparedStatement.setDate(5, currRes.getDob());
                 preparedStatement.setString(6, currRes.getCellNum());
                 preparedStatement.setString(7, currRes.getAddress());
                 preparedStatement.setString(8, currRes.getEmail());

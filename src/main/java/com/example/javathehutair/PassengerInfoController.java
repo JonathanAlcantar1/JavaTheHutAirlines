@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PassengerInfoController {
@@ -64,7 +65,8 @@ public class PassengerInfoController {
     private int paxNum;
     private int cabinID;
     private int firstSeats, bussSeats, econSeats;
-    private String firstName, lastName, dateOfBirth, phoneNum, address, email;
+    private String firstName, lastName, phoneNum, address, email;
+    private LocalDate dateOfBirth;
     private int paxLabelCounter = 1;
     private Reservation reservation = new Reservation();
     private FlightCabin flightCabin;
@@ -245,7 +247,7 @@ public class PassengerInfoController {
                     // Gets all the data from the text fields
                     firstName = fNameTxt.getText();
                     lastName = lNameTxt.getText();
-                    dateOfBirth = dobDatePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                    dateOfBirth = dobDatePicker.getValue();
                     phoneNum = pNumTxt.getText();
                     address = addressTxt.getText();
                     email = emailTxt.getText();
