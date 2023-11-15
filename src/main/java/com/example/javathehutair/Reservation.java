@@ -225,6 +225,20 @@ If it does we will return a result set of the entire row to be used within the P
         }
     }
 
+    public ResultSet getReservationsOnFlight(int flightID) throws SQLException{
+        connection = DriverManager.getConnection(url, username, password);
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE flightID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setInt(1, flightID);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return result;
+    }
+
     public void printResList(List<Reservation> res)
     {
         int size = res.size();

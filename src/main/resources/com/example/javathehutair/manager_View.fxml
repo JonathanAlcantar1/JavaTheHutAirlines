@@ -61,7 +61,7 @@
       <Line endX="294.03228759765625" endY="-1.52587890625E-5" layoutX="367.0" layoutY="118.0" startX="-137.0" startY="-7.62939453125E-6" />
       <ImageView fitHeight="83.0" fitWidth="103.0" layoutX="256.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Downloads/kisspng-airplane-font-awesome-clip-art-aircraft-vector-5adf0951e9bb31.1647178315245663539574.png" />
+            <Image url="@../../../images/kisspng-airplane-font-awesome-clip-art-aircraft-vector-5adf0951e9bb31.1647178315245663539574.png" />
          </image>
       </ImageView>
       <Text disable="true" layoutX="352.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search for current passengers on existing or past flights" textAlignment="CENTER" wrappingWidth="142.3265380859375">
@@ -71,7 +71,7 @@
       </Text>
       <ImageView fitHeight="78.0" fitWidth="78.0" layoutX="259.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Desktop/accountPng.png" />
+            <Image url="@../../../images/accountPng.png" />
          </image>
       </ImageView>
       <Text layoutX="353.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search for passengers flight history" textAlignment="CENTER" wrappingWidth="142.3265380859375">
@@ -81,7 +81,7 @@
       </Text>
       <ImageView fx:id="searchPsngrResButton" fitHeight="78.0" fitWidth="83.0" layoutX="264.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Downloads/clipart4179936.png" />
+            <Image url="@../../../images/clipart4179936.png" />
          </image>
       </ImageView>
       <Text layoutX="352.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search for passenger reservation and information" textAlignment="CENTER" wrappingWidth="142.3265380859375">
