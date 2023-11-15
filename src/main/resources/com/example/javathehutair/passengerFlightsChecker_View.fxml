@@ -65,20 +65,20 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="539.0" layoutY="9.0" text="Search Passengers" textFill="#2e5a88">
+      <Label layoutX="558.0" layoutY="26.0" text="Search Passengers" textFill="#2e5a88">
          <font>
             <Font name="Elephant" size="40.0" />
          </font>
       </Label>
       <TextField fx:id="arrTxtField" layoutX="638.0" layoutY="122.0" />
       <Button fx:id="searchButton" layoutX="836.0" layoutY="122.0" mnemonicParsing="false" onAction="#clickSearchButton" prefHeight="25.0" prefWidth="77.0" text="Search" />
-      <TableView fx:id="flightsTable" layoutX="439.0" layoutY="176.0" prefHeight="530.0" prefWidth="557.0">
+      <TableView fx:id="flightsTable" layoutX="405.0" layoutY="176.0" prefHeight="530.0" prefWidth="643.0">
          <columns>
             <TableColumn fx:id="flightIDCol" prefWidth="75.0" text="Flight ID" />
             <TableColumn fx:id="classIDCol" prefWidth="138.5" text="Class ID" />
             <TableColumn fx:id="firstNameCol" prefWidth="135.5" text="First Name" />
             <TableColumn fx:id="lastNameCol" minWidth="0.0" prefWidth="104.0" text="Last Name" />
-            <TableColumn fx:id="emailCol" minWidth="0.0" prefWidth="103.5" text="Email" />
+            <TableColumn fx:id="emailCol" minWidth="0.0" prefWidth="189.0" text="Email" />
          </columns>
       </TableView>
     </children>
