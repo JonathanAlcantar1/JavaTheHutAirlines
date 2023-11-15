@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ManagerLoginController {
-
+    @FXML
+    private Button searchFlightsButton;
+    @FXML
+    private Button cancelFlightsButton;
+    @FXML
+    private Button aboutUsButton;
     @FXML
     private TextField usernameTxt;
     @FXML
@@ -23,6 +28,8 @@ public class ManagerLoginController {
     private Button loginButton;
     private String username, password;
 
+    private SceneController sceneController = new SceneController();
+
     @FXML
     void clickLogin(ActionEvent event) throws SQLException, IOException {
         Manager managerHelper = new Manager();
@@ -30,19 +37,8 @@ public class ManagerLoginController {
         password = passwordTxt.getText();
 
         if(managerHelper.loginChecker(username, password)){
-            // open next manager scene to display what the manager can see/do
-
-            Node node = (Node) event.getSource();
-            Stage primaryStage = (Stage) node.getScene().getWindow();
-            primaryStage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("manager_View.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-            Stage stage = new Stage();
-            stage.setTitle("Manager View");
-            stage.setScene(scene);
-            stage.show();
-
-
+            // open next manager scene to display what the manager can see/d
+            sceneController.switchScene(event, "manager_View.fxml", "Manager View");
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -51,52 +47,17 @@ public class ManagerLoginController {
             alert.showAndWait();
         }
     }
-
     @FXML
-    public void clickCancelFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cancelFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Cancel Flights");
-        stage.setScene(scene);
-        stage.show();
+    public void clickSearchFlights(ActionEvent event) throws IOException {
+        sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
     @FXML
-    public void clickManagerLogin(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+    public void clickCancelFlights(ActionEvent event) throws IOException{
+        sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
     }
-
     @FXML
-    public void clickSearchFlights(ActionEvent event) throws IOException{
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+    public void clickAboutUs(ActionEvent event) throws IOException{
+        sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
-
 
 }
