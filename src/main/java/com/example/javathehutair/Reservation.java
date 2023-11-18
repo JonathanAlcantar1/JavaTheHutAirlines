@@ -14,13 +14,10 @@ public class Reservation
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
     private FlightCabin currSeat = new FlightCabin();
-    private String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private String username = "admin";
-    private String password = "!Javathehut23";
-    // Added url,username,password to be passed into getConnection() --> just to make it look less crowded
-    private Connection connection;
+
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private dbConnector dbConnector = new dbConnector();
 
 
     public void setFlightID(int flightID){
@@ -115,11 +112,10 @@ public class Reservation
      */
     public void pushReservations() throws SQLException {
         Reservation currRes;
-        connection = DriverManager.getConnection(url, username, password);
 
         query = "INSERT INTO airlineDatabase.reservationTable (flightID, classID, firstName, lastName, dob, cellNum, address, email) " +
                 "VALUES (?, ?, ?, ? ,? ,? ,? ,?)";
-        preparedStatement = connection.prepareStatement(query);
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
         try {
             while (currIndex < reservations.size()) {
                 currRes = reservations.get(currIndex);
@@ -157,10 +153,9 @@ If it does we will return a result set of the entire row to be used within the P
  after a specific reservation is added onto the database
  */
     public ResultSet getReservationRow(int flightID, String firstName, String lastName, String email) throws SQLException{
-        connection = DriverManager.getConnection(url, username, password);
 
         query = "SELECT * FROM airlineDatabase.reservationTable WHERE flightID LIKE ? AND firstName LIKE ? AND lastName LIKE ? AND email LIKE ?";
-        preparedStatement = connection.prepareStatement(query);
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
         try {
             preparedStatement.setInt(1, flightID);
             preparedStatement.setString(2, "%" + firstName + "%");
@@ -178,9 +173,8 @@ If it does we will return a result set of the entire row to be used within the P
     getReservation() is used when the actual reservationID is known.
      */
     public ResultSet getReservation(String reservationID, String lastName) throws SQLException{
-        connection = DriverManager.getConnection(url, username, password);
         query = "SELECT * FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
-        preparedStatement = connection.prepareStatement(query);
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
         try{
             preparedStatement.setString(1, "%" + reservationID + "%");
             preparedStatement.setString(2, "%" + lastName + "%");
@@ -196,13 +190,12 @@ If it does we will return a result set of the entire row to be used within the P
     Seat incrementor. how do we get the flightID and cabinID to increment the seat?
      */
     public void cancelReservation(String reservationID, String lastName) throws SQLException{
-        connection = DriverManager.getConnection(url, username, password);
         result = getReservation(reservationID, lastName);
         result.next();
         int currFlightID = result.getInt("flightID");
         int currClassID = result.getInt("classID");
         query = "DELETE FROM airlineDatabase.reservationTable WHERE reservationID LIKE ? AND lastName LIKE ?";
-        preparedStatement = connection.prepareStatement(query);
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
         outter:
         try{
             preparedStatement.setString(1, "%" + reservationID + "%");
@@ -223,6 +216,19 @@ If it does we will return a result set of the entire row to be used within the P
         catch(Exception e){
             throw new IllegalArgumentException("Incorrect Reservation or ID was inputted.");
         }
+    }
+
+    public ResultSet getReservationsOnFlight(int flightID) throws SQLException{
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE flightID = ?";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        try{
+            preparedStatement.setInt(1, flightID);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return result;
     }
 
     public void printResList(List<Reservation> res)

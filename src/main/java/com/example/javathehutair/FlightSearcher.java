@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.sql.Date;
 public class FlightSearcher
 {
+    private dbConnector dbConnector = new dbConnector();
     //Returning a ResultSet of any flight with open seats given a departure and arrival location and number of tickets
     public ResultSet searchAllFlights(String departure, String arrival, int numTickets) {
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currTotalSeats >= ?)";
@@ -44,9 +45,8 @@ public class FlightSearcher
         ResultSet resultSet = null;
         try {
             //open a database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase", "admin", "!Javathehut23");
             //sql statement to execute with prepared statement
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = dbConnector.getConnection().prepareStatement(sql);
             //passing parameters into the sql statement
             preparedStatement.setString(1, "%" + departure + "%");
             preparedStatement.setString(2, "%" + arrival + "%");
@@ -63,9 +63,8 @@ public class FlightSearcher
         ResultSet resultSet = null;
         try {
             //open a database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase", "admin", "!Javathehut23");
             //sql statement to execute with prepared statement
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = dbConnector.getConnection().prepareStatement(sql);
             //passing parameters into the sql statement
             preparedStatement.setString(1, "%" + departure + "%");
             preparedStatement.setString(2, "%" + arrival + "%");

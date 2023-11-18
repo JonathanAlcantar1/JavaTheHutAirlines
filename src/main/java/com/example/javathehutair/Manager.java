@@ -1,23 +1,25 @@
+/**
+ * CSUN FALL 23 Java The Hut Airlines
+ * This is a Model Class to support Manager
+ * @author Ricardo Ramos, October 14, 2023
+ * @version 1.0
+ */
 package com.example.javathehutair;
 
 import java.sql.*;
 
 public class Manager {
-    private final String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private final String user = "admin";
-    private final String pass = "!Javathehut23";
-    private Connection connection;
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private dbConnector dbConnector = new dbConnector();
+
 
     public boolean loginChecker(String username, String password) throws SQLException {
         String dbUsername, dbPassword;
-        connection = DriverManager.getConnection(url, user, pass);
-
         query = "SELECT * FROM airlineDatabase.managerCredentialTable WHERE (username LIKE ?) AND (password LIKE ?)";
 
-        preparedStatement = connection.prepareStatement(query);
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);
         resultSet = preparedStatement.executeQuery();
@@ -33,4 +35,7 @@ public class Manager {
         }
         return true;
     }
+
+
+
 }

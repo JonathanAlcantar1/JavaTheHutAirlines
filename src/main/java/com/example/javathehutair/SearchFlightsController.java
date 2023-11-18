@@ -115,6 +115,8 @@ public class SearchFlightsController {
     private String title = "Error";
     private String contentText = "Please fill out all fields and try search again";
 
+    private SceneController sceneController = new SceneController();
+
     /**
      * Method checks to see if a string is blank
      * @param str
@@ -169,7 +171,6 @@ public class SearchFlightsController {
                 // if blank program alerts user to try search again
                 setErrorAlert(title, contentText);
             }
-
             else
             {
                 //if no date is specified do a general search
@@ -344,42 +345,17 @@ public class SearchFlightsController {
     }
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cancelFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Cancel Flights");
-        stage.setScene(scene);
-        stage.show();
+       sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
     }
     @FXML
     public void clickManagerLogin(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "managerLogin_view.fxml", "Manager Login");
     }
-    @FXML
-    public void clickManagersInfo(ActionEvent event) throws IOException {
 
-    }
     //Opens AboutUs page when clicked on sidebar
     @FXML
     public void clickAboutUs(ActionEvent event) throws IOException{
-
+        sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 
     public void setResultSet(ResultSet resultSet){

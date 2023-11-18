@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.PassengerFlightHistoryController">
+    <children>
+        <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
+            <children>
+                <ImageView fx:id="logoImage" fitHeight="205.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/jtha-logo-transparent-png.png" />
+                    </image></ImageView>
+                <Button fx:id="searchFlightsButton" graphicTextGap="0.0" mnemonicParsing="false" onAction="#clickSearchFlights" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Search Flights" textFill="WHITE">
+                    <font>
+                        <Font name="Elephant" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="30.0" top="30.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="cancelFlightsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickCancelFlights" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Cancel Flight" textFill="WHITE">
+                    <font>
+                        <Font name="Elephant" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="30.0" top="30.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="managersButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" onAction="#clickManagerLogin" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="Managers" textFill="WHITE">
+                    <font>
+                        <Font name="Elephant" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="30.0" top="30.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="aboutUsButton" graphicTextGap="0.0" layoutX="10.0" layoutY="207.0" mnemonicParsing="false" onAction="#clickAboutUs" prefHeight="41.0" prefWidth="215.0" style="-fx-background-color: #2E5A88;" text="About Us" textFill="WHITE">
+                    <font>
+                        <Font name="Elephant" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="30.0" top="30.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+        <ImageView fitHeight="53.0" fitWidth="38.0" layoutX="228.0" layoutY="13.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/back.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="backButton" layoutX="209.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickBackButton" opacity="0.0" prefHeight="58.0" prefWidth="72.0" text="Button" />
+    </children>
+</AnchorPane>
