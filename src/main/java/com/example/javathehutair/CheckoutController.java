@@ -2,7 +2,7 @@
  * CSUN FALL 23 Java The Hut Airlines
  * This is a Controller Class for the checkout_view.fxml
  * @author Jonathan Alcantar, October 24, 2023
- * @version 1.0
+ * @version 2.0
  */
 
 package com.example.javathehutair;
@@ -16,8 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -74,6 +74,7 @@ public class CheckoutController {
     private String title = "Error";
     private String contentText = "Payment not accepted, please try again";
     private FlightCabin flightCabin = new FlightCabin();
+    private ResultSet resultSet = null;
 
     /**
      * Method sets the reservation
@@ -88,12 +89,19 @@ public class CheckoutController {
      * Method sets the summary content
      * @throws SQLException
      */
-    public void setSummary() throws SQLException {
-        flightIDLabel.setText("Flight ID: " + reservation.getReservationList().get(0).getFlightID());
+    public void setSummary() throws SQLException
+    {
+        int flightID = reservation.getReservationList().get(0).getFlightID();
+        FlightSearcher flightSearcher = new FlightSearcher(); // creates instance of FlightSearcher
+        resultSet = flightSearcher.searchSpecificFlight(flightID);
+        setResultSet(resultSet);
 
-        // TODO: Methods to get the departure city and arrival city
-//        fromToLabel.setText("From: " + reservation.getDeparture() + " " + "To: " + reservation.getArrival());
-
+        while(resultSet.next())
+        {
+            fromToLabel.setText("From: " + resultSet.getString("departureLocation") +
+                    " " + "To: " + resultSet.getString("arrivalLocation"));
+        }
+        flightIDLabel.setText("Flight ID: " + flightID);
         noOfPaxLabel.setText("Number of Passengers: " + reservation.getReservationSize());
         totalLabel.setText("Total Price: $" + flightCabin.totalReservationPrice(reservation.getReservationList()) + ".00");
     }
@@ -137,7 +145,7 @@ public class CheckoutController {
 
         try
         {
-            System.out.println("Submit Button Pressed");
+//            System.out.println("Submit Button Pressed");
             // Gets data from the TextFields
             fName = fnameTxt.getText();
             mName = mNameTxt.getText();
@@ -146,6 +154,7 @@ public class CheckoutController {
             expDate = YearMonth.parse(expirationDate.getText(),formatter);
             cvc = Long.parseLong(cvcTxt.getText());
             creditNum = Long.parseLong(creditNumTxt.getText());
+
             // Verifies payment by calling creditCheck method
             boolean bool = checkout.creditCheck(fName, mName, lName, creditNum, cvc, expDate);
 
@@ -153,9 +162,6 @@ public class CheckoutController {
             {
                 // Pushes reservations to the database
                 reservation.pushReservations();
-
-                // Clears the reservations list
-                reservation.flushReservations();
 
                 // Closes the current scene
                 Node node = (Node) event.getSource();
@@ -166,11 +172,23 @@ public class CheckoutController {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("confirmation_view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
 
+                // Creates an instance of the CheckoutController
+                ConfirmationController confirmationController = fxmlLoader.getController();
+
+                //Passes the reservation object to the ConfirmationControllerr
+                confirmationController.setReservation(reservation);
+                confirmationController.loadFlightTable();
+                confirmationController.loadPaxTable();
+
+                // Clears the reservations list
+                reservation.flushReservations();
+
                 // Opens the Checkout scene
                 Stage stage = new Stage();
                 stage.setTitle("Confirmation");
                 stage.setScene(scene);
                 stage.show();
+
 
             }
             else // Otherwise if payment cannot be verified
@@ -187,10 +205,18 @@ public class CheckoutController {
             e.getStackTrace();
         } catch (IOException | SQLException e)
         {
-            System.out.println("Error while connecting to database");
+            System.out.println("Error while connecting to db");
             e.getStackTrace();
         }
 
 
+    }
+
+    /**
+     * Method used to set the resultSet
+     * @param resultSet
+     */
+    public void setResultSet(ResultSet resultSet){
+        this.resultSet = resultSet;
     }
 }
