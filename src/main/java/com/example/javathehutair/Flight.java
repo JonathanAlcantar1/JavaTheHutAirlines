@@ -43,6 +43,18 @@ public class Flight
         this.currEconomySeats = currEconomySeats;
     }
 
+    public Flight(int flightID, String departureLocation, String arrivalLocation, String departureDate,
+                  String arrivalDate, String departureTime, String arrivalTime)
+    {
+        this.flightID = flightID;
+        this.departureLocation = departureLocation;
+        this.arrivalLocation = arrivalLocation;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+    }
+
 
     /**
      * Getters and Setters

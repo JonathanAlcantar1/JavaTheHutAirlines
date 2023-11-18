@@ -31,6 +31,13 @@ public class FlightSearcher
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currEconomySeats >= ?)";
         return databaseQuery(sql, departure, arrival, numTickets);
     }
+
+    // Searches for a specific flight using the flightID
+    public ResultSet searchSpecificFlight(int flightID)
+    {
+        String sql = "SELECT * FROM flightsTable WHERE flightID = ?";
+        return databaseQuery(sql, flightID);
+    }
     //does the repeated work of accessing the database and passing the sql through a prepared statement. Returns a resultSet
     public ResultSet databaseQuery(String sql, String departure, String arrival, int numTickets){
         PreparedStatement preparedStatement = null;
@@ -68,6 +75,27 @@ public class FlightSearcher
             //executing
             resultSet = preparedStatement.executeQuery();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet databaseQuery(String sql, int flightID){
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            //open a database connection
+            Connection connection = DriverManager.getConnection("jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase", "admin", "!Javathehut23");
+            //sql statement to execute with prepared statement
+            preparedStatement = connection.prepareStatement(sql);
+            //passing parameters into the sql statement
+            preparedStatement.setInt(1, flightID);
+            //executing
+            resultSet = preparedStatement.executeQuery();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error is here");
             e.printStackTrace();
         }
         return resultSet;

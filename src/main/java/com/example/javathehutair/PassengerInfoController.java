@@ -2,7 +2,7 @@
  * CSUN FALL 23 Java The Hut Airlines
  * This is a Controller Class for the passengerInfo_view.fxml
  * @author Jonathan Alcantar, October 24, 2023
- * @version 1.0
+ * @version 2.0
  */
 
 package com.example.javathehutair;
@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class PassengerInfoController {
 
@@ -70,8 +69,11 @@ public class PassengerInfoController {
     private int paxLabelCounter = 1;
     private Reservation reservation = new Reservation();
     private FlightCabin flightCabin;
-    Boolean cabinSelected = false;
+    private boolean cabinSelected = false;
 
+    /**
+     * Some setters for the cabin class seats
+     */
     public void setFirstSeats(int num){firstSeats = num;}
 
     public void setBussSeats(int num){bussSeats = num;}
@@ -133,10 +135,6 @@ public class PassengerInfoController {
         return cabinID;
     }
 
-    /*
-    When the user clicks a button (either first class, business, economy etc), that specific actionEvent will assign cabinID to its specific cabinID number
-    then we can just use getCurrCabinID during the addReservation
-     */
 
     /**
      * This method will get and set the cabinID depending on what cabin button the user selects.
@@ -197,6 +195,7 @@ public class PassengerInfoController {
 
     }
 
+
     /**
      * Method checks to see if a string is blank
      * @param str
@@ -207,6 +206,7 @@ public class PassengerInfoController {
         return str.isBlank();
 
     }
+
 
     /**
      * Method sets an Error Alert
