@@ -9,12 +9,22 @@ package com.example.javathehutair;
 import java.sql.*;
 
 public class Manager {
+    /**
+     * Local class variables
+     */
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private dbConnector dbConnector = new dbConnector();
 
 
+    /**
+     * Method is used to verify login credentials
+     * @param username
+     * @param password
+     * @return boolean
+     * @throws SQLException
+     */
     public boolean loginChecker(String username, String password) throws SQLException {
         String dbUsername, dbPassword;
         query = "SELECT * FROM airlineDatabase.managerCredentialTable WHERE (username LIKE ?) AND (password LIKE ?)";

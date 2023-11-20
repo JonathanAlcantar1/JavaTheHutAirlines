@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ManagerViewController {
+    /**
+     * Method executes button event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
         //closing the current stage

@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ManagerLoginController {
+    /**
+     * Local Variables
+     */
     @FXML
     private Button searchFlightsButton;
     @FXML
@@ -30,6 +33,12 @@ public class ManagerLoginController {
 
     private SceneController sceneController = new SceneController();
 
+    /**
+     * Method executes event after login click action
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void clickLogin(ActionEvent event) throws SQLException, IOException {
         Manager managerHelper = new Manager();
@@ -47,6 +56,7 @@ public class ManagerLoginController {
             alert.showAndWait();
         }
     }
+
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");

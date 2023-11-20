@@ -20,6 +20,9 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class PassengerFlightCheckerController {
+    /**
+     * Local class variables
+     */
     private SceneController sceneController = new SceneController();
     private ObservableList<Reservation> passengerList = FXCollections.observableArrayList();
     private String title = "Error";
@@ -63,9 +66,12 @@ public class PassengerFlightCheckerController {
     public void clickAboutUs(ActionEvent event) throws IOException{
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
-
-    public void setErrorAlert(String title, String contentText)
-    {
+    /**
+     * Method sets error alert
+     * @param title
+     * @param contentText
+     */
+    public void setErrorAlert(String title, String contentText){
         // if user doesn't select a cabin type program alerts user to try search again
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -76,10 +82,10 @@ public class PassengerFlightCheckerController {
 
     /**
      * Method used to refresh the data in the TableView. Calls method searchAllFlights from FlightSearcher
-     * @throws SQLException
+     * @throws NumberFormatException
      */
     @FXML
-    private void refreshTable() throws SQLException, NumberFormatException
+    private void refreshTable() throws NumberFormatException
     {
 
         try {
