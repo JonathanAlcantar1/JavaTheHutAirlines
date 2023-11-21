@@ -1,110 +1,82 @@
+/**
+ * ManagerViewController
+ * November 13 / 14, 2023
+ * @author Ricardo Ramos
+ *
+ * Most algorithms within this class uses SceneController method from the SceneController class to switch between
+ *      scenes given the specified FXML scene. The purpose of the class itself is for the Manager View Scene to view
+ *      the manager menu and its redirect buttons.
+ *
+ * @version 1.0
+ */
 package com.example.javathehutair;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ManagerViewController {
+    private SceneController sceneController = new SceneController();
     /**
      * Method executes button event
      * @param event
      * @throws IOException
      */
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Cancel Flight.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("cancelFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Cancel Flights");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Manager Login.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerLogin(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("managerLogin_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "managerLogin_view.fxml", "Manager Login");
     }
-
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Search Flight.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException{
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Manager Login");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
+
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Flight passenger checker.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickPassengerFlightChecker(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("passengerFlightsChecker_View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Passenger Flights Checker");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "passengerFlightsChecker_View.fxml", "Passenger Flight Checker");
     }
-
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Passenger history checker.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchPsngrHistory(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("passengerFlightsHistoryChecker_View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Passenger Flights Checker");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "passengerFlightsHistoryChecker_View.fxml", "Passenger History Checker");
     }
-
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Passenger Reservation Checker.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchPsngrRes(ActionEvent event) throws IOException {
-        //closing the current stage
-        Node node = (Node) event.getSource();
-        Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.close();
-        //loading search flights fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("passengerReservationChecker_View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
-        //opening search flights stage
-        Stage stage = new Stage();
-        stage.setTitle("Passenger Flights Checker");
-        stage.setScene(scene);
-        stage.show();
+        sceneController.switchScene(event, "passengerReservationChecker_View.fxml", "Passenger Reservation Checker");
+
     }
 }

@@ -73,8 +73,9 @@ public class CheckoutController {
     private Reservation reservation;
     private String title = "Error";
     private String contentText = "Payment not accepted, please try again";
-    private FlightCabin flightCabin = new FlightCabin();
     private ResultSet resultSet = null;
+
+    private Reservation reserve = new Reservation();
 
     /**
      * Method sets the reservation
@@ -103,7 +104,7 @@ public class CheckoutController {
         }
         flightIDLabel.setText("Flight ID: " + flightID);
         noOfPaxLabel.setText("Number of Passengers: " + reservation.getReservationSize());
-        totalLabel.setText("Total Price: $" + flightCabin.totalReservationPrice(reservation.getReservationList()) + ".00");
+        totalLabel.setText("Total Price: $" + reserve.totalReservationPrice(reservation.getReservationList()) + ".00");
     }
 
 

@@ -1,7 +1,18 @@
 /**
- * CSUN FALL 23 Java The Hut Airlines
- * This is a Model Class to support Manager
- * @author Ricardo Ramos, October 14, 2023
+ * Reservation
+ * October 20, 2023
+ * @author Ricardo Ramos
+ *
+ * Most important algorithm within this clsas are:
+ *      Reservation - Constructor for creating a reservation that takes in information of the current passenger
+ *      addReservation - Adds a reservation into a List that only takes in Objects of Reservation
+ *      pushReservation - Pushes the entire list of reservations iteratively into the database
+ *      getReservation - Obtains an instance of a reservaiton
+ *      cancelReservation - Deletes an instance of a reservation given a reservationID and lastName of passenger
+ *      totalReservaiotnPrice - Sums entire price of a reservation list iteratively by comparing set prices from
+ *          a cabinClass database table while checking all passengers chosen cabinClass
+ *      flushReservation - deletes all current reservations within a list
+ *
  * @version 1.0
  */
 package com.example.javathehutair;
@@ -23,10 +34,10 @@ public class Reservation
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
     private FlightCabin currSeat = new FlightCabin();
-
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private dbConnector dbConnector = new dbConnector();
+    private int totalReservationPrice;
 
     /**
      * Method Set Flight ID
@@ -383,6 +394,35 @@ If it does we will return a result set of the entire row to be used within the P
             System.out.println(res.get(i).getAddress());
             System.out.println(res.get(i).getEmail());
         }
+    }
+    /**
+     * Method calculates iteratively the total reservation price given an instance List.
+     * @param reservations
+     * @throws SQLException
+     */
+    public int totalReservationPrice(List<Reservation> reservations) throws SQLException{
+        // The idea of getting the totalReservationPrice of the current list of reservations is
+        // to essentially use this function to pass
+        query = "SELECT seatPrice FROM airlineDatabase.seatClasses WHERE classID = ?";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        Reservation currRes;
+        try{
+
+            while(currIndex < reservations.size()){
+                currRes = reservations.get(currIndex);
+                preparedStatement.setInt(1, currRes.getClassID());
+                result = preparedStatement.executeQuery();
+                result.next();
+                totalReservationPrice += result.getInt(1);
+                currIndex++;
+            }
+
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("No reservations have been added!");
+        }
+
+        return totalReservationPrice;
     }
 
 }
