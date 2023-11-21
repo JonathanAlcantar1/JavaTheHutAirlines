@@ -16,6 +16,11 @@ public class FlightSearcher
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currTotalSeats >= ?) AND (departureDate = ?) AND (arrivalDate = ?)";
         return databaseQuery(sql, departure, arrival, numTickets, departureDay, arrivalDate);
     }
+    //Searches for a specific flight info given a flightID
+    public ResultSet searchSpecificFlight(String flightID){
+        String sql = "SELECT * FROM flightsTable WHERE (flightId = ?)";
+        return databaseQuery(sql, flightID);
+    }
     //searching for flights with the specified amount of first class seats given a departure and arrival location
     public ResultSet searchFirstClassFlights(String departure, String arrival, int numTickets){
         //String sql = "SELECT * FROM flightsTable WHERE departureLocation=? AND arrivalLocation=? AND (currFirstSeats >= ?)";
@@ -84,9 +89,8 @@ public class FlightSearcher
         ResultSet resultSet = null;
         try {
             //open a database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase", "admin", "!Javathehut23");
             //sql statement to execute with prepared statement
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = dbConnector.getConnection().prepareStatement(sql);
             //passing parameters into the sql statement
             preparedStatement.setInt(1, flightID);
             //executing
@@ -95,6 +99,22 @@ public class FlightSearcher
         catch (Exception e)
         {
             System.out.println("Error is here");
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    public ResultSet databaseQuery(String sql, String flightID){
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            //open a database connection
+            //sql statement to execute with prepared statement
+            preparedStatement = dbConnector.getConnection().prepareStatement(sql);
+            //passing parameters into the sql statement
+            preparedStatement.setString(1, flightID);
+            //executing
+            resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return resultSet;

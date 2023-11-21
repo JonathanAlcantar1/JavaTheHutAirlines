@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -56,5 +58,61 @@
             </image>
         </ImageView>
         <Button fx:id="backButton" layoutX="209.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickBackButton" opacity="0.0" prefHeight="58.0" prefWidth="72.0" text="Button" />
+      <Label layoutX="542.0" layoutY="38.0" text="Reservation Lookup" textFill="#2e5a88">
+         <font>
+            <Font name="Elephant" size="40.0" />
+         </font>
+      </Label>
+      <TextField fx:id="reservationTextBox" layoutX="702.0" layoutY="114.0" promptText="Enter Reservation ID" />
+      <Label layoutX="519.0" layoutY="116.0" text="Enter Reservation ID:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="submitButton" layoutX="884.0" layoutY="115.0" mnemonicParsing="false" onAction="#clickSubmitButton" text="Submit" />
+      <ImageView fx:id="logoImage1" fitHeight="127.0" fitWidth="133.0" layoutX="294.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/accountPng.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="430.0" layoutY="175.0" prefHeight="36.0" prefWidth="79.0" text="First Name:" />
+      <Label layoutX="430.0" layoutY="225.0" text="Last Name:" />
+      <Label layoutX="299.0" layoutY="147.0" prefHeight="29.0" prefWidth="199.0" text="Passenger Info">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="225.0" text="Address:" />
+      <Label layoutX="703.0" layoutY="184.0" text="Email:" />
+      <Label layoutX="703.0" layoutY="266.0" text="DOB:" />
+      <Label layoutX="430.0" layoutY="265.0" text="Cellphone:" />
+      <TextField fx:id="firstNameTxt" editable="false" layoutX="525.0" layoutY="181.0" />
+      <TextField fx:id="lastNameTxt" editable="false" layoutX="525.0" layoutY="220.0" />
+      <TextField fx:id="cellNumberTxt" editable="false" layoutX="525.0" layoutY="261.0" />
+      <TextField fx:id="emailTxt" editable="false" layoutX="783.0" layoutY="180.0" />
+      <TextField fx:id="addressTxt" editable="false" layoutX="783.0" layoutY="220.0" />
+      <TextField fx:id="dobTxt" editable="false" layoutX="783.0" layoutY="261.0" />
+      <Label layoutX="298.0" layoutY="346.0" prefHeight="29.0" prefWidth="199.0" text="Flight Info">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoImage11" fitHeight="127.0" fitWidth="133.0" layoutX="284.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/kisspng-airplane-font-awesome-clip-art-aircraft-vector-5adf0951e9bb31.1647178315245663539574.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="430.0" layoutY="370.0" prefHeight="36.0" prefWidth="79.0" text="Flight ID:" />
+      <Label layoutX="430.0" layoutY="407.0" prefHeight="36.0" prefWidth="110.0" text="Departure:" />
+      <Label layoutX="432.0" layoutY="444.0" prefHeight="36.0" prefWidth="110.0" text="Arrival:" />
+      <Label layoutX="703.0" layoutY="444.0" prefHeight="36.0" prefWidth="110.0" text="Class:" />
+      <Label layoutX="703.0" layoutY="370.0" prefHeight="36.0" prefWidth="88.0" text="Dept Date:" />
+      <Label layoutX="703.0" layoutY="407.0" prefHeight="36.0" prefWidth="110.0" text="Arrival Date:" />
+      <TextField fx:id="flightTxt" editable="false" layoutX="525.0" layoutY="376.0" />
+      <TextField fx:id="departureTxt" editable="false" layoutX="524.0" layoutY="412.0" />
+      <TextField fx:id="arrivalTxt" editable="false" layoutX="524.0" layoutY="449.0" />
+      <TextField fx:id="depDateTxt" editable="false" layoutX="783.0" layoutY="376.0" />
+      <TextField fx:id="arrivDateTxt" editable="false" layoutX="783.0" layoutY="412.0" />
+      <TextField fx:id="classTxt" editable="false" layoutX="783.0" layoutY="449.0" />
     </children>
 </AnchorPane>

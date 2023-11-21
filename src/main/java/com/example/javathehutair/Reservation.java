@@ -29,7 +29,7 @@ public class Reservation
      */
     private int flightID, classID;
     private int currIndex = 0; // variable used to reference current index that will be initially treated as 0, and reset to 0 after flushReservations()
-    private String firstName, lastName, cellNum, address, email;
+    private String firstName, lastName, cellNum, address, email, reservationID;
     private LocalDate dob;
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
@@ -39,6 +39,21 @@ public class Reservation
     private dbConnector dbConnector = new dbConnector();
     private int totalReservationPrice;
 
+    /**
+     * Method Set Reservation ID
+     * @param reservationID
+     */
+    public void setReservationID(String reservationID){
+        this.reservationID = reservationID;
+    }
+
+    /**
+     * Method Get Reservation ID
+     * @return String
+     */
+    public String getReservationID (){
+        return reservationID;
+    }
     /**
      * Method Set Flight ID
      * @param flightID
@@ -171,6 +186,14 @@ public class Reservation
         this.cellNum = cellNum;
         this.address = address;
         this.email = email;
+    }
+    /**
+     * Constructs Reservation
+     * @param classID
+     */
+    public Reservation(String reservationID, int classID){
+        this.reservationID = reservationID;
+        this.classID = classID;
     }
 
     /**
@@ -321,15 +344,56 @@ If it does we will return a result set of the entire row to be used within the P
         }
         return result;
     }
+
+    /**
+     * Method Gets Individual Reservation
+     * @param reservationID
+     * @throws SQLException
+     * @return ResultSet
+     */
+    public ResultSet getReservation(String reservationID) throws SQLException{
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE (reservationID = ?)";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        try{
+            preparedStatement.setString(1, reservationID);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
+    /**
+        * Method gets reservationID, ClassID, FlightID
+        * @Param firstName
+        * @Param lastName
+        * @Param dob
+        * @Param cellNum
+        */
+
+    public ResultSet getReservationId(String firstName, String lastName, Date dob, String cellNum) throws SQLException {
+        query = "SELECT reservationID, classID, flightID FROM airlineDatabase.reservationTable WHERE (firstName = ?) AND (lastName = ?) AND (dob = ?) AND (cellNum = ?)";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        try{
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setDate(3, dob);
+            preparedStatement.setString(4, cellNum);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
     /**
      * Method Cancels Reservation
      * @param reservationID
      * @param lastName
      * @throws SQLException
      */
-    /*
-    Seat incrementor. how do we get the flightID and cabinID to increment the seat?
-     */
+
     public void cancelReservation(String reservationID, String lastName) throws SQLException{
         result = getReservation(reservationID, lastName);
         result.next();
