@@ -1,3 +1,13 @@
+/**
+ * PassengerReservationCheckerController Class
+ * November 21, 2023
+ * @author Teo Dominguez
+ *
+ * The purpose of this class is to access the database flights table and provide the specific flights in a resultset
+ * when provided different parameters
+ *
+ * @version 1.0
+ */
 package com.example.javathehutair.Controllers;
 
 import com.example.javathehutair.Reservation.Reservation;
@@ -14,6 +24,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class PassengerReservationCheckerController {
+    /**
+     * Local Class Variables
+     */
     @FXML
     private Button submitButton;
     @FXML
@@ -42,14 +55,18 @@ public class PassengerReservationCheckerController {
     private TextField arrivDateTxt;
     @FXML
     private TextField classTxt;
-
-
     private SceneController sceneController = new SceneController();
     private Reservation reservation = new Reservation();
     private ObservableList<Reservation> passengerList = FXCollections.observableArrayList();
     private String flightID,classID;
     private FlightSearcher flightSearcher = new FlightSearcher();
 
+    /**
+     * Method that handles when submit is clicked. Checks if input is valid and searches for
+     * passenger and flight info
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     public void clickSubmitButton(ActionEvent event) throws SQLException{
         clearText();
@@ -72,9 +89,13 @@ public class PassengerReservationCheckerController {
                 showFlightInfo(resultSet);
             }
         }
-
-
     }
+
+    /**
+     * Method that loads reservation table with info
+     * @param resultSet
+     * @throws SQLException
+     */
     public void showReservationInfo(ResultSet resultSet) throws SQLException {
         while(resultSet.next()){
             setFlightID(resultSet.getString("flightID"));
@@ -97,8 +118,13 @@ public class PassengerReservationCheckerController {
             addressTxt.setText(resultSet.getString("address"));
             emailTxt.setText(resultSet.getString("email"));
         }
-
     }
+
+    /**
+     * Method that loads flight cells with info
+     * @param resultSet
+     * @throws SQLException
+     */
     public void showFlightInfo(ResultSet resultSet) throws SQLException{
         while (resultSet.next()){
             departureTxt.setText(resultSet.getString("departureLocation"));
@@ -107,6 +133,10 @@ public class PassengerReservationCheckerController {
             arrivDateTxt.setText(resultSet.getString("arrivalDate"));
         }
     }
+
+    /**
+     * Method to clear all the textboxes on the screen
+     */
     public void clearText(){
         firstNameTxt.clear();
         lastNameTxt.clear();
@@ -121,6 +151,12 @@ public class PassengerReservationCheckerController {
         classTxt.clear();
         flightTxt.clear();
     }
+
+    /**
+     * Method that creates an error message with the given title and content text
+     * @param title
+     * @param contentText
+     */
     public void setErrorAlert(String title, String contentText)
     {
         // if user doesn't select a cabin type program alerts user to try search again
@@ -128,37 +164,85 @@ public class PassengerReservationCheckerController {
         alert.setTitle(title);
         alert.setContentText(contentText);
         alert.showAndWait();
-
     }
+
+    /**
+     * Method to go back to manager view page when back arrow is clicked
+     * @param event
+     * @throws IOException
+     */
         @FXML
     public void clickBackButton(ActionEvent event) throws IOException {
         sceneController.switchScene(event,"manager_View.fxml","Manager View");
     }
+
+    /**
+     * Method to switch to search flights page when search flights is clicked on sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
+
+    /**
+     * Method to switch to manager login page when managers is clicked on sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerLogin(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "manager_View.fxml", "Manager View");
     }
+
+    /**
+     * Method to switch to cancel flights page when cancel flights is clicked on sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
     }
+
+    /**
+     * Method to switch to about us page when the about us is clicked on sidebar
+     * @param event
+     * @throws IOException
+     */
     public void clickAboutUs(ActionEvent event) throws IOException{
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 
+    /**
+     * Method to set Flight ID
+     * @param flightID
+     */
     public void setFlightID(String flightID){
         this.flightID = flightID;
     }
+
+    /**
+     * Method to get Flight ID
+     * @return flightID
+     */
     public String getFlightID(){
         return this.flightID;
     }
+
+    /**
+     * Method to set Class ID
+     * @param classID
+     */
     public void setClassID(String classID){
         this.classID = classID;
     }
+
+    /**
+     * Method to get Class ID
+     * @return classID
+     */
     public String getClassID(){
         return this.classID;
     }

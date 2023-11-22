@@ -1,3 +1,15 @@
+/**
+ * CancelFlightsController Class
+ * November 21, 2023
+ * @author Teo Dominguez
+ *
+ * The purporse of this class is as a controller for the cancel flights page.
+ * The important method is clickSubmit which cancels the reservation when submit is clicked by use
+ * of the Reservation class
+ *
+ * @version 1.0
+ */
+
 package com.example.javathehutair.Controllers;
 
 import com.example.javathehutair.Reservation.Reservation;
@@ -11,7 +23,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class CancelFlightsController {
-
+    /**
+     * Local class variables
+     */
     @FXML
     private Button aboutUsButton;
 
@@ -32,13 +46,15 @@ public class CancelFlightsController {
 
     @FXML
     private Button submitButton;
-
-    /* local variables */
     private String reservationID;
     private String lastName;
     private SceneController sceneController = new SceneController();
 
-    //Method to cancel a flight reservation given a reservation ID and LastName
+    /**
+     * Cancels a reservation given a valid reservationID and lastName in the textbox
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     public void clickSubmit(ActionEvent event) throws SQLException {
         try {
@@ -61,33 +77,66 @@ public class CancelFlightsController {
             alert.showAndWait();
         }
     }
-    //Opens SearchFlight page when clicked on sidebar
+
+    /**
+     * Switches to search flights page when search flights is clicked on sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
+
+    /**
+     * Switches to manager login page when managers is clicked on the sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagersInfo(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "managerLogin_view.fxml", "Manager Login");
     }
-    //Opens AboutUs page when clicked on sidebar
+
+    /**
+     * Switches to about us page when about us is clicked on the sidebar
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickAboutUs(ActionEvent event) throws IOException{
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
-                                   //setters and getters
+
+    /**
+     * Method to get Reservation ID
+     * @return reservationID
+     */
     public String getReservationID(){
         return reservationID;
     }
+
+    /**
+     * Method to set Reservation ID
+     * @param reservationID
+     */
     public void setReservationID(String reservationID){
         this.reservationID = reservationID;
     }
+
+    /**
+     * Method to get Last Name
+     * @return lastName
+     */
     public String getLastName(){
         return lastName;
     }
+
+    /**
+     * Method to set Last Name
+     * @param lastName
+     */
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-
-
 }
