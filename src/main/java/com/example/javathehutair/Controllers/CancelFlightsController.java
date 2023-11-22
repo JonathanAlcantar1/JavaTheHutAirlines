@@ -1,15 +1,3 @@
-/**
- * CancelFlightsController Class
- * November 21, 2023
- * @author Teo Dominguez
- *
- * The purporse of this class is as a controller for the cancel flights page.
- * The important method is clickSubmit which cancels the reservation when submit is clicked by use
- * of the Reservation class
- *
- * @version 1.0
- */
-
 package com.example.javathehutair.Controllers;
 
 import com.example.javathehutair.Reservation.Reservation;
@@ -18,10 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
-
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * The purpose of this class is as a controller for the cancel flights page.
+ * The important method is clickSubmit which cancels the reservation when submit is clicked by use
+ * of the Reservation class
+ * @author Teo Dominguez
+ * @version 1.0
+ * November 21, 2023
+ */
 public class CancelFlightsController {
     /**
      * Local class variables
@@ -52,7 +46,7 @@ public class CancelFlightsController {
 
     /**
      * Cancels a reservation given a valid reservationID and lastName in the textbox
-     * @param event
+     * @param event ActionEvent
      * @throws SQLException
      */
     @FXML
@@ -80,7 +74,7 @@ public class CancelFlightsController {
 
     /**
      * Switches to search flights page when search flights is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -90,7 +84,7 @@ public class CancelFlightsController {
 
     /**
      * Switches to manager login page when managers is clicked on the sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -100,7 +94,7 @@ public class CancelFlightsController {
 
     /**
      * Switches to about us page when about us is clicked on the sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -118,7 +112,7 @@ public class CancelFlightsController {
 
     /**
      * Method to set Reservation ID
-     * @param reservationID
+     * @param reservationID String
      */
     public void setReservationID(String reservationID){
         this.reservationID = reservationID;
@@ -134,7 +128,7 @@ public class CancelFlightsController {
 
     /**
      * Method to set Last Name
-     * @param lastName
+     * @param lastName String
      */
     public void setLastName(String lastName){
         this.lastName = lastName;

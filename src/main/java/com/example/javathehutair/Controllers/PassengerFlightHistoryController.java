@@ -1,14 +1,3 @@
-/**
- * PassengerFlightHistoryController Class
- * November 21, 2023
- * @author Teo Dominguez
- *
- * The purpose of this class is to both gather and display all passenger flight history when given the
- * passenger information
- *
- * @version 1.0
- */
-
 package com.example.javathehutair.Controllers;
 
 import com.example.javathehutair.Reservation.Reservation;
@@ -25,7 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * The purpose of this class is to both gather and display all passenger flight history when given the
+ * passenger information
+ * @author Teo Dominguez
+ * @version 1.0
+ * November 21, 2023
+ */
 public class PassengerFlightHistoryController {
     /**
      * Local class variables
@@ -73,7 +68,7 @@ public class PassengerFlightHistoryController {
     /**
      * Method that handles when submit is clicked. Checks if input is valid
      * then searches and dispalys all reservations and corresponding flights
-     * @param Event
+     * @param Event ActionEvent
      * @throws SQLException
      */
     public void clickSearchButton(ActionEvent Event) throws SQLException {
@@ -101,10 +96,10 @@ public class PassengerFlightHistoryController {
     /**
      * method that clears reservationList,reservationTable, and flightIdList
      * then populates reservationList with reservations and flightIdList with flight IDs
-     * @param firstName
-     * @param lastName
-     * @param dob
-     * @param cellNum
+     * @param firstName String
+     * @param lastName String
+     * @param dob Date
+     * @param cellNum String
      * @throws SQLException
      */
     public void refreshReservationTable(String firstName, String lastName, java.sql.Date dob, String cellNum) throws SQLException {
@@ -171,8 +166,8 @@ public class PassengerFlightHistoryController {
 
     /**
      *nMethod that creates an error message with the given title and content text
-     * @param title
-     * @param contentText
+     * @param title String
+     * @param contentText String
      */
     public void setErrorAlert(String title, String contentText)
     {
@@ -186,7 +181,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to switch to manager view page when back button is clicked
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -196,7 +191,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to switch to search flights page when search flights is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -206,7 +201,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to switch to manager login page when managers is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -216,7 +211,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to switch to cancel flights page when cancel flights is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -226,7 +221,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to switch to about us page when about us is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -236,7 +231,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to set Date of Birth
-     * @param dob
+     * @param dob String
      */
     public void setDob(String dob){
         try {
@@ -257,7 +252,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to set First Name
-     * @param firstName
+     * @param firstName String
      */
     public void setFirstName(String firstName){
         this.firstName = firstName;
@@ -273,7 +268,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to set Last Name
-     * @param lastName
+     * @param lastName String
      */
     public void setLastName(String lastName){
         this.lastName = lastName;
@@ -289,7 +284,7 @@ public class PassengerFlightHistoryController {
 
     /**
      * Method to set Cellphone Number
-     * @param cellNum
+     * @param cellNum String
      */
     public void setCellNum(String cellNum){
         this.cellNum = cellNum;

@@ -1,13 +1,3 @@
-/**
- * PassengerReservationCheckerController Class
- * November 21, 2023
- * @author Teo Dominguez
- *
- * The purpose of this class is to access the database flights table and provide the specific flights in a resultset
- * when provided different parameters
- *
- * @version 1.0
- */
 package com.example.javathehutair.Controllers;
 
 import com.example.javathehutair.Reservation.Reservation;
@@ -17,12 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-
+/**
+ * The purpose of this class is as a controller for the passenger reservation checker scene. Provides passenger info and flight info for a given reservation.
+ * @author Teo Dominguez
+ * @version 1.0
+ * November 21, 2023
+ */
 public class PassengerReservationCheckerController {
     /**
      * Local Class Variables
@@ -64,7 +58,7 @@ public class PassengerReservationCheckerController {
     /**
      * Method that handles when submit is clicked. Checks if input is valid and searches for
      * passenger and flight info
-     * @param event
+     * @param event ActionEvent
      * @throws SQLException
      */
     @FXML
@@ -93,7 +87,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method that loads reservation table with info
-     * @param resultSet
+     * @param resultSet ResultSet
      * @throws SQLException
      */
     public void showReservationInfo(ResultSet resultSet) throws SQLException {
@@ -122,7 +116,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method that loads flight cells with info
-     * @param resultSet
+     * @param resultSet ResultSet
      * @throws SQLException
      */
     public void showFlightInfo(ResultSet resultSet) throws SQLException{
@@ -154,8 +148,8 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method that creates an error message with the given title and content text
-     * @param title
-     * @param contentText
+     * @param title String
+     * @param contentText String
      */
     public void setErrorAlert(String title, String contentText)
     {
@@ -168,7 +162,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to go back to manager view page when back arrow is clicked
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
         @FXML
@@ -178,7 +172,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to switch to search flights page when search flights is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -188,7 +182,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to switch to manager login page when managers is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -198,7 +192,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to switch to cancel flights page when cancel flights is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     @FXML
@@ -208,7 +202,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to switch to about us page when the about us is clicked on sidebar
-     * @param event
+     * @param event ActionEvent
      * @throws IOException
      */
     public void clickAboutUs(ActionEvent event) throws IOException{
@@ -217,7 +211,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to set Flight ID
-     * @param flightID
+     * @param flightID String
      */
     public void setFlightID(String flightID){
         this.flightID = flightID;
@@ -233,7 +227,7 @@ public class PassengerReservationCheckerController {
 
     /**
      * Method to set Class ID
-     * @param classID
+     * @param classID String
      */
     public void setClassID(String classID){
         this.classID = classID;
