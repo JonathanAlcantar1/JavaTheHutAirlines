@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import java.io.IOException;
 import java.sql.SQLException;
-/**
+/** CancelFlightsController
  * The purpose of this class is as a controller for the cancel flights page.
  * The important method is clickSubmit which cancels the reservation when submit is clicked by use
  * of the Reservation class

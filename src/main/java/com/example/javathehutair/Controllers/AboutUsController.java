@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.io.IOException;
 
-/**
+/** AboutUsController
  * The purpose of this class is as a controller for the about us page
  * @author Teo Dominguez
  * @version 1.0

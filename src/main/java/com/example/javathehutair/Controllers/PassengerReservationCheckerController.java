@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-/**
+/** PassengerReservationCheckerController
  * The purpose of this class is as a controller for the passenger reservation checker scene. Provides passenger info and flight info for a given reservation.
  * @author Teo Dominguez
  * @version 1.0
@@ -51,7 +51,6 @@ public class PassengerReservationCheckerController {
     private TextField classTxt;
     private SceneController sceneController = new SceneController();
     private Reservation reservation = new Reservation();
-    private ObservableList<Reservation> passengerList = FXCollections.observableArrayList();
     private String flightID,classID;
     private FlightSearcher flightSearcher = new FlightSearcher();
 

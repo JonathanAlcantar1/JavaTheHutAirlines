@@ -4,7 +4,7 @@ import com.example.javathehutair.dbConnectorUtility.dbConnector;
 import java.sql.*;
 import java.time.LocalDate;
 import java.sql.Date;
-/**
+/** FlightSearcher
  * The purpose of this class is to access the database flights table and provide the specific flights in a resultset
  * when provided different parameters
  * @author Teo Dominguez

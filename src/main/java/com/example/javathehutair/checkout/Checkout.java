@@ -1,6 +1,6 @@
 package com.example.javathehutair.checkout;
 import java.time.YearMonth;
-/**
+/** Checkout
  * The purpose of this class is to verify a credit card transaction for use during a checkout
  * @author Teo Dominguez
  * @version 1.0

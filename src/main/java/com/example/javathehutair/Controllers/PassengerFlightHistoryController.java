@@ -58,14 +58,16 @@ public class PassengerFlightHistoryController {
     @FXML
     private TextField cellNumTxt;
     private SceneController sceneController = new SceneController();
+    //used for flight table input
     private ObservableList<Flight> flightList = FXCollections.observableArrayList();
+    //used for reservation table input
     private ObservableList<Reservation> reservationList = FXCollections.observableArrayList();
+    //used to store flightIds for use in a search to populate flightlist
     private ArrayList<String> flightIdList = new ArrayList<String>();
     private String firstName, lastName, cellNum;
     private java.sql.Date dob;
-    //TODO: Finish error when info left blank
 
-    /**
+    /** PassengerFlightHistoryController
      * Method that handles when submit is clicked. Checks if input is valid
      * then searches and dispalys all reservations and corresponding flights
      * @param Event ActionEvent
