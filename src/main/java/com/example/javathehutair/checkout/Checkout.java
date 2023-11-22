@@ -1,4 +1,4 @@
-package com.example.javathehutair;
+package com.example.javathehutair.checkout;
 import java.time.YearMonth;
 
 public class Checkout {

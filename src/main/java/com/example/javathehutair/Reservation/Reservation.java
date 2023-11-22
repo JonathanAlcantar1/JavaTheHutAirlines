@@ -15,7 +15,10 @@
  *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.Reservation;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
+import com.example.javathehutair.flight.FlightCabin;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -36,7 +39,7 @@ public class Reservation
     private FlightCabin currSeat = new FlightCabin();
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
     private int totalReservationPrice;
 
     /**

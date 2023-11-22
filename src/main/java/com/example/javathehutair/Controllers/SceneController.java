@@ -1,5 +1,6 @@
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

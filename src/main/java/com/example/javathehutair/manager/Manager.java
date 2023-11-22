@@ -10,7 +10,9 @@
  *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.manager;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
 
 import java.sql.*;
 
@@ -21,7 +23,7 @@ public class Manager {
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
 
 
     /**

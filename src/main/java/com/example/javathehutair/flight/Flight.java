@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.flight;
 
 public class Flight
 {

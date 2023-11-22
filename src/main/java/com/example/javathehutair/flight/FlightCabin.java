@@ -10,7 +10,9 @@
  *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.flight;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
 
 import java.sql.*;
 
@@ -22,7 +24,7 @@ public class FlightCabin
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet result = null;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
 
     // These three getters will mostly be used to return current available seats based on their cabins & can be found with a flightID
     /**

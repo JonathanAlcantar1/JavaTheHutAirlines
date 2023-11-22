@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.passenger;
 
 import javafx.beans.property.SimpleStringProperty;
 

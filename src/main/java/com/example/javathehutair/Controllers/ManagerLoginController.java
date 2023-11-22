@@ -11,7 +11,9 @@
  * @version 1.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
+
+import com.example.javathehutair.manager.Manager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

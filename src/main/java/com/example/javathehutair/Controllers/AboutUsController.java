@@ -1,4 +1,4 @@
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

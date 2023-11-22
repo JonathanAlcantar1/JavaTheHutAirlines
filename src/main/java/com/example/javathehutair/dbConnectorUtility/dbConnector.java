@@ -1,4 +1,4 @@
-package com.example.javathehutair;
+package com.example.javathehutair.dbConnectorUtility;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

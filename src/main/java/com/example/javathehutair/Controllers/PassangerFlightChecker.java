@@ -7,7 +7,9 @@
  *      into a ResultSet which is furthermore used within displaying into a scene for manager search.
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
 
 import java.io.IOException;
 import java.sql.*;
@@ -20,7 +22,7 @@ public class PassangerFlightChecker {
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
 
     /**
      * Method obtains and returns all columns from the database given a specific flightID, with data relating to

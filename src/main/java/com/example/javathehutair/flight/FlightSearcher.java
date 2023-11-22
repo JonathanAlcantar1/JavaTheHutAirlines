@@ -1,11 +1,13 @@
-package com.example.javathehutair;
+package com.example.javathehutair.flight;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.sql.Date;
 public class FlightSearcher
 {
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
     //Returning a ResultSet of any flight with open seats given a departure and arrival location and number of tickets
     public ResultSet searchAllFlights(String departure, String arrival, int numTickets) {
         String sql = "SELECT * FROM flightsTable WHERE (departureLocation LIKE ?) AND (arrivalLocation LIKE ?) AND (currTotalSeats >= ?)";

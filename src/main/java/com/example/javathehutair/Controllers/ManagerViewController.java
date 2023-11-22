@@ -9,7 +9,7 @@
  *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

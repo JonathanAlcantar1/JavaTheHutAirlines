@@ -11,8 +11,10 @@
  *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.Reservation.Reservation;
+import com.example.javathehutair.flight.Flight;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
