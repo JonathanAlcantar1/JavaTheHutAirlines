@@ -24,7 +24,7 @@ public class Passenger
      * @param resID
      * @param cabin
      */
-    Passenger(String fName, String lName, String resID, String cabin)
+    public Passenger(String fName, String lName, String resID, String cabin)
     {
         this.firstName = new SimpleStringProperty(fName);
         this.lastName = new SimpleStringProperty(lName);
