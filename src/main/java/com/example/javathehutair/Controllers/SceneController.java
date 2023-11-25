@@ -6,10 +6,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
+/** Scene Controller
+ * The purpose of this class is to provide a method for easily switching scenes
+ * @author Teo Dominguez
+ * @version 1.0
+ * November 21, 2023
+ */
 public class SceneController {
+        /** SceneController
+         * Method to switch to a new scene, set the title, and close the previous scene
+         * @param event ActionEvent
+         * @param fxml String
+         * @param title String
+         * @throws IOException
+         */
     public void switchScene(ActionEvent event, String fxml, String title) throws IOException{
             //closing the current stage
             Node node = (Node) event.getSource();
