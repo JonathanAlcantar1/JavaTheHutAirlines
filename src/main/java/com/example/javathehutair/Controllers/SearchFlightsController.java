@@ -5,8 +5,11 @@
  * @version 2.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.MainApplication;
+import com.example.javathehutair.flight.Flight;
+import com.example.javathehutair.flight.FlightSearcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

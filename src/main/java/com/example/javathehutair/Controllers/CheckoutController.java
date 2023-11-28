@@ -5,8 +5,12 @@
  * @version 2.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.checkout.Checkout;
+import com.example.javathehutair.flight.FlightSearcher;
+import com.example.javathehutair.MainApplication;
+import com.example.javathehutair.Reservation.Reservation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,9 +75,9 @@ public class CheckoutController {
     private YearMonth expDate;
     private Checkout checkout = new Checkout();
     private Reservation reservation;
-    private FlightCabin flightCabin = new FlightCabin();
     private ResultSet resultSet = null;
     private SceneController sceneController = new SceneController();
+    private Reservation reserve = new Reservation();
 
     /**
      * Method sets the reservation
@@ -102,7 +106,7 @@ public class CheckoutController {
         }
         flightIDLabel.setText("Flight ID: " + flightID);
         noOfPaxLabel.setText("Number of Passengers: " + reservation.getReservationSize());
-        totalLabel.setText("Total Price: $" + flightCabin.totalReservationPrice(reservation.getReservationList()) + ".00");
+        totalLabel.setText("Total Price: $" + reserve.totalReservationPrice(reservation.getReservationList()) + ".00");
     }
 
 

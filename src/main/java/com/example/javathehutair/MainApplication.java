@@ -21,9 +21,3 @@ public class MainApplication extends Application {
     }
 }
 
-/*
-    TODO: Flight Search Date Checker. Only display flights that are in the database from the chosen date onward.
- */
-/*
-    TODO: Refactor Existing DriverManager code for connecting to SQL databse --> Param(Url, user, pass)
- */

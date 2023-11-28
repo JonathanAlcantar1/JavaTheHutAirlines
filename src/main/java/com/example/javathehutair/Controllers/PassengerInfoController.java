@@ -5,8 +5,11 @@
  * @version 2.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.MainApplication;
+import com.example.javathehutair.Reservation.Reservation;
+import com.example.javathehutair.flight.FlightCabin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

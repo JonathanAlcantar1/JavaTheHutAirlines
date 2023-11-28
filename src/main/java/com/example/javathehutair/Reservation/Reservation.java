@@ -1,4 +1,24 @@
-package com.example.javathehutair;
+/**
+ * Reservation
+ * October 20, 2023
+ * @author Ricardo Ramos
+ *
+ * Most important algorithm within this clsas are:
+ *      Reservation - Constructor for creating a reservation that takes in information of the current passenger
+ *      addReservation - Adds a reservation into a List that only takes in Objects of Reservation
+ *      pushReservation - Pushes the entire list of reservations iteratively into the database
+ *      getReservation - Obtains an instance of a reservaiton
+ *      cancelReservation - Deletes an instance of a reservation given a reservationID and lastName of passenger
+ *      totalReservaiotnPrice - Sums entire price of a reservation list iteratively by comparing set prices from
+ *          a cabinClass database table while checking all passengers chosen cabinClass
+ *      flushReservation - deletes all current reservations within a list
+ *
+ * @version 1.0
+ */
+package com.example.javathehutair.Reservation;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
+import com.example.javathehutair.flight.FlightCabin;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -7,68 +27,158 @@ import java.util.List;
 
 public class Reservation
 {
+    /**
+     * Local class variables
+     */
     private int flightID, classID;
     private int currIndex = 0; // variable used to reference current index that will be initially treated as 0, and reset to 0 after flushReservations()
-    private String firstName, lastName, cellNum, address, email;
+    private String firstName, lastName, cellNum, address, email, reservationID;
     private LocalDate dob;
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
     private FlightCabin currSeat = new FlightCabin();
-
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
+    private int totalReservationPrice;
 
+    /**
+     * Method Set Reservation ID
+     * @param reservationID
+     */
+    public void setReservationID(String reservationID){
+        this.reservationID = reservationID;
+    }
 
+    /**
+     * Method Get Reservation ID
+     * @return String
+     */
+    public String getReservationID (){
+        return reservationID;
+    }
+    /**
+     * Method Set Flight ID
+     * @param flightID
+     */
     public void setFlightID(int flightID){
         this.flightID = flightID;
     }
+    /**
+     * Method Get Flight ID
+     * @return int
+     */
     public int getFlightID(){return flightID;}
     public void setClassID(int classID){
         this.classID = classID;
     }
+    /**
+     * Method Get Class ID
+     * @return int
+     */
     public int getClassID(){
         return classID;
     }
+    /**
+     * Method Set First Name
+     * @param firstName
+     */
     public void setFirstName(String firstName){
         this.firstName = firstName;
     }
+    /**
+     * Method Get First Name
+     * @return String
+     */
     public String getFirstName(){
         return firstName;
     }
+    /**
+     * Method Set Last Name
+     * @param lastName
+     */
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
+    /**
+     * Method Get Last Name
+     * @return String
+     */
     public String getLastName(){
         return lastName;
     }
+    /**
+     * Method Set Date-Of-Birth
+     * @param dob
+     */
     public void setDob(LocalDate dob){
         this.dob = dob;
     }
+    /**
+     * Method Get DOB
+     * @return Date
+     */
     public Date getDob(){
         return Date.valueOf(dob);
     }
+    /**
+     * Method Set Cell Number
+     * @param cellNum
+     */
     public void setCellNum(String cellNum){
         this.cellNum = cellNum;
     }
+    /**
+     * Method Get Cell Number
+     * @return String
+     */
     public String getCellNum(){
         return cellNum;
     }
+    /**
+     * Method Set Address
+     * @param address
+     */
     public void setAddress(String address){
         this.address = address;
     }
+    /**
+     * Method Get Adress
+     * @return String
+     */
     public String getAddress(){
         return address;
     }
+    /**
+     * Method Set Email
+     * @param email
+     */
     public void setEmail(String email){
         this.email = email;
     }
+    /**
+     * Method Get Email
+     * @return String
+     */
     public String getEmail(){
         return email;
     }
-
+    /**
+     * Constructs Reservation
+     */
     public Reservation(){
     }
+    /**
+     * Constructs Reservation
+     * @param flightID
+     * @param classID
+     * @param firstName
+     * @param lastName
+     * @param dob
+     * @param cellNum
+     * @param address
+     * @param email
+     */
     // Constructors for adding Reservations. Will be used for ...
     public Reservation(int flightID, int classID, String firstName, String lastName, LocalDate dob, String cellNum, String address, String email){
         this.flightID = flightID;
@@ -80,23 +190,55 @@ public class Reservation
         this.address = address;
         this.email = email;
     }
+    /**
+     * Constructs Reservation
+     * @param classID
+     */
+    public Reservation(String reservationID, int classID){
+        this.reservationID = reservationID;
+        this.classID = classID;
+    }
 
+    /**
+     * Method adds reservation into constructor
+     *  @param flightID
+     * @param classID
+     * @param firstName
+     * @param lastName
+     * @param dob
+     * @param cellNum
+     * @param address
+     * @param email
+     */
     public void addReservation(int flightID, int classID, String firstName, String lastName, LocalDate dob, String cellNum, String address, String email){
         Reservation newReservation = new Reservation(flightID, classID, firstName, lastName, dob, cellNum, address, email);
         reservations.add(newReservation);
     }
+    /**
+     * Method Gets Current Reservation List
+     * @return List
+     */
     // Getter for getting the current list of reservations that will be added using the ^^, addReservation
     public List<Reservation> getReservationList(){
         return reservations;
     }
-
+    /**
+     * Method Gets Reservation Size
+     * @return int
+     */
     public int getReservationSize(){
         return reservations.size();
     }
-
+    /**
+     * Method Gets Current Reservation Index
+     * @return int
+     */
     public int currReservationIndex(){
         return currIndex;
     }
+    /**
+     * Method Resets The Current List Of Reservations
+     */
     /*
     flushReservations() will be used after a user clicks (Complete Reservation) or any equivalent button that will complete their 'transaction'
      this will essentially clear all the current list of reservations and will reset counters back to 0 ready for the next set of reservations
@@ -105,6 +247,10 @@ public class Reservation
         reservations.clear();
         currIndex = 0;
     }
+    /**
+     * Method pushes reservation into database
+     * @throws SQLException
+     */
     /*
     this pushes all the reservations that have been added via addReservation() iteratively checking, once again
     if the seats are greater than 0, so we dont overbook, but we should have previous checkers before hand, this is just a final checker just in case
@@ -143,7 +289,15 @@ public class Reservation
         }
 
     }
-
+    /**
+     * Method Gets Reservation Row
+     * @param flightID
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @throws SQLException
+     * @returns ResultSet
+     */
     /*
 Given the specific flightID, firstName, lastName and email, we will match this information
 that is in the SQL reservationTable and check if there is a row that exists with these information.
@@ -169,6 +323,13 @@ If it does we will return a result set of the entire row to be used within the P
         }
         return result;
     }
+    /**
+     * Method Gets Individual Reservation
+     * @param reservationID
+     * @param lastName
+     * @throws SQLException
+     * @return ResultSet
+     */
     /*
     getReservation() is used when the actual reservationID is known.
      */
@@ -186,9 +347,56 @@ If it does we will return a result set of the entire row to be used within the P
         }
         return result;
     }
-    /*
-    Seat incrementor. how do we get the flightID and cabinID to increment the seat?
+
+    /**
+     * Method Gets Individual Reservation
+     * @param reservationID
+     * @throws SQLException
+     * @return ResultSet
      */
+    public ResultSet getReservation(String reservationID) throws SQLException{
+        query = "SELECT * FROM airlineDatabase.reservationTable WHERE (reservationID = ?)";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        try{
+            preparedStatement.setString(1, reservationID);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
+    /**
+        * Method gets reservationID, ClassID, FlightID
+        * @Param firstName
+        * @Param lastName
+        * @Param dob
+        * @Param cellNum
+        */
+
+    public ResultSet getReservationId(String firstName, String lastName, Date dob, String cellNum) throws SQLException {
+        query = "SELECT reservationID, classID, flightID FROM airlineDatabase.reservationTable WHERE (firstName = ?) AND (lastName = ?) AND (dob = ?) AND (cellNum = ?)";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        try{
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setDate(3, dob);
+            preparedStatement.setString(4, cellNum);
+            result = preparedStatement.executeQuery();
+        }
+        catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+    /**
+     * Method Cancels Reservation
+     * @param reservationID
+     * @param lastName
+     * @throws SQLException
+     */
+
     public void cancelReservation(String reservationID, String lastName) throws SQLException{
         result = getReservation(reservationID, lastName);
         result.next();
@@ -217,7 +425,12 @@ If it does we will return a result set of the entire row to be used within the P
             throw new IllegalArgumentException("Incorrect Reservation or ID was inputted.");
         }
     }
-
+    /**
+     * Method Gets Reservation From FlightID
+     * @param flightID
+     * @throws SQLException
+     * @return ResultSet
+     */
     public ResultSet getReservationsOnFlight(int flightID) throws SQLException{
         query = "SELECT * FROM airlineDatabase.reservationTable WHERE flightID = ?";
         preparedStatement = dbConnector.getConnection().prepareStatement(query);
@@ -230,7 +443,10 @@ If it does we will return a result set of the entire row to be used within the P
         }
         return result;
     }
-
+    /**
+     * Method Prints Reservation List
+     * @param res
+     */
     public void printResList(List<Reservation> res)
     {
         int size = res.size();
@@ -245,6 +461,35 @@ If it does we will return a result set of the entire row to be used within the P
             System.out.println(res.get(i).getAddress());
             System.out.println(res.get(i).getEmail());
         }
+    }
+    /**
+     * Method calculates iteratively the total reservation price given an instance List.
+     * @param reservations
+     * @throws SQLException
+     */
+    public int totalReservationPrice(List<Reservation> reservations) throws SQLException{
+        // The idea of getting the totalReservationPrice of the current list of reservations is
+        // to essentially use this function to pass
+        query = "SELECT seatPrice FROM airlineDatabase.seatClasses WHERE classID = ?";
+        preparedStatement = dbConnector.getConnection().prepareStatement(query);
+        Reservation currRes;
+        try{
+
+            while(currIndex < reservations.size()){
+                currRes = reservations.get(currIndex);
+                preparedStatement.setInt(1, currRes.getClassID());
+                result = preparedStatement.executeQuery();
+                result.next();
+                totalReservationPrice += result.getInt(1);
+                currIndex++;
+            }
+
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("No reservations have been added!");
+        }
+
+        return totalReservationPrice;
     }
 
 }

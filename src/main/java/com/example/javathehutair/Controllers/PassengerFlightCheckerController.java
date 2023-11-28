@@ -1,5 +1,20 @@
-package com.example.javathehutair;
+/**
+ * PassengerFlightCheckerController
+ * November 15, 2023
+ * @author Ricardo Ramos
+ *
+ * The most important algorithm within this class would be within refreshTable method, where PassengerFlightChecker's
+ *      method 'getPassengersInFlight' is called to obtain all passengers within an instance of a flight. Here we
+ *      assign the output of getPassengersInFlight into a local resultSet where it is iteratively put into an ObservableList
+ *      that only takes in the object type Reservations (the information is stored within reservations --> Names, Dob, Email etc.)
+ *
+ *
+ * @version 1.0
+ */
+package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.Reservation.Reservation;
+import com.example.javathehutair.flight.Flight;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,8 +29,12 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class PassengerFlightCheckerController {
+    /**
+     * Local class variables
+     */
     private SceneController sceneController = new SceneController();
     private ObservableList<Reservation> passengerList = FXCollections.observableArrayList();
+    private PassangerFlightChecker passengerHelper = new PassangerFlightChecker();
     private ResultSet resultSet = null;
 
     @FXML
@@ -37,30 +56,56 @@ public class PassengerFlightCheckerController {
 
     @FXML
     private TableColumn<Flight, Date> emailCol;
+
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to previous scene (manager menu).
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickBackButton(ActionEvent event) throws IOException {
         sceneController.switchScene(event,"manager_View.fxml","Manager View");
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Search Flight.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickSearchFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "searchFlights_view.fxml", "Search Flights");
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Manager Login.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickManagerLogin(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "manager_View.fxml", "Manager View");
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to Cancel Flights.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
         sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
     }
+    /**
+     * Function executes scene change from ActionEvent via on-click button on FXML. Scenes Changes to About Us.
+     * @param event
+     * @throws IOException
+     */
     public void clickAboutUs(ActionEvent event) throws IOException{
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 
 
     /**
-     * Method used to refresh the data in the TableView. Calls method searchAllFlights from FlightSearcher
-     * @throws SQLException
+     * Method used to refresh the data in the TableView. Calls method getPassengersInFlight from PassengerFlightChecker
+     * @throws NumberFormatException
      */
     @FXML
     private void refreshTable() throws NumberFormatException
@@ -84,7 +129,7 @@ public class PassengerFlightCheckerController {
 
             else
             {
-                resultSet = reservation.getReservationsOnFlight(arrival);
+                resultSet = passengerHelper.getPassengersInFlight(arrival);
                 setResultSet(resultSet);
 
 
@@ -129,7 +174,6 @@ public class PassengerFlightCheckerController {
                     "Please fill out all fields and try search again");
         }
 
-
     }
 
     /**
@@ -166,6 +210,10 @@ public class PassengerFlightCheckerController {
         loadFlightTable();
     }
 
+    /**
+     * Method sets a current ResultSet
+     * @param resultSet
+     */
     public void setResultSet(ResultSet resultSet){
         this.resultSet = resultSet;
     }

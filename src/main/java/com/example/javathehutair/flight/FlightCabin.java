@@ -1,25 +1,30 @@
 /**
- * CSUN FALL 23 Java The Hut Airlines
- * This is a Model Class to support obtaining and modifying cabin information within flights
- * @author Ricardo Ramos, October 14, 2023
+ * FlightCabin Class
+ * October 14, 2023
+ * @author Ricardo Ramos
+ *
+ * Most algorithms within this class uses the Java API JDBC SQL which allow us to obtain information from the AWS RDS hosted
+ *      MySQL database. The core functions from the getCurr(SeatStatus), (seatStatus)Decrementor and (seatStatus)Incrementor
+ *      use SQL queries to obtain the information which is then either passed into a ResultSet to obtain specific values
+ *      or update specific values within the database.
+ *
  * @version 1.0
  */
-package com.example.javathehutair;
+package com.example.javathehutair.flight;
+
+import com.example.javathehutair.dbConnectorUtility.dbConnector;
 
 import java.sql.*;
-import java.util.List;
 
 public class FlightCabin
 {
     /**
      * Local Class Variables
      */
-    private int totalReservationPrice;
-    private int currIndex =0;
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet result = null;
-    private dbConnector dbConnector = new dbConnector();
+    private com.example.javathehutair.dbConnectorUtility.dbConnector dbConnector = new dbConnector();
 
     // These three getters will mostly be used to return current available seats based on their cabins & can be found with a flightID
     /**
@@ -328,39 +333,5 @@ public class FlightCabin
         }
         return output;
     }
-    /*
-    This is to be used for the Manager, as described in Sprint 2 user story,
-    this will return the total reservation price given a specific list of reservations,
-    we can pass through here getReservations() from the Reservation class to obtain the full price and
-    can furthermore be displayed for checkout price
-     */
-    /**
-     * Method calculates iteratively the total reservation price given an instance List.
-     * @param reservations
-     * @throws SQLException
-     */
-    public int totalReservationPrice(List<Reservation> reservations) throws SQLException{
-        // The idea of getting the totalReservationPrice of the current list of reservations is
-        // to essentially use this function to pass
-        query = "SELECT seatPrice FROM airlineDatabase.seatClasses WHERE classID = ?";
-        preparedStatement = dbConnector.getConnection().prepareStatement(query);
-        Reservation currRes;
-        try{
 
-            while(currIndex < reservations.size()){
-                currRes = reservations.get(currIndex);
-                preparedStatement.setInt(1, currRes.getClassID());
-                result = preparedStatement.executeQuery();
-                result.next();
-                totalReservationPrice += result.getInt(1);
-                currIndex++;
-            }
-
-        }
-        catch(Exception e){
-            throw new IllegalArgumentException("No reservations have been added!");
-        }
-
-        return totalReservationPrice;
-    }
 }

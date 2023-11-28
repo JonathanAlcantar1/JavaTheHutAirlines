@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-package com.example.javathehutair;
+package com.example.javathehutair.passenger;
 
 import javafx.beans.property.SimpleStringProperty;
 
@@ -24,7 +24,7 @@ public class Passenger
      * @param resID
      * @param cabin
      */
-    Passenger(String fName, String lName, String resID, String cabin)
+    public Passenger(String fName, String lName, String resID, String cabin)
     {
         this.firstName = new SimpleStringProperty(fName);
         this.lastName = new SimpleStringProperty(lName);

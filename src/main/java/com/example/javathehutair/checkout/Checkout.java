@@ -1,8 +1,28 @@
-package com.example.javathehutair;
+package com.example.javathehutair.checkout;
 import java.time.YearMonth;
-
+/** Checkout
+ * The purpose of this class is to verify a credit card transaction for use during a checkout
+ * @author Teo Dominguez
+ * @version 1.0
+ * November 21, 2023
+ */
 public class Checkout {
+    /**
+     * local class variables
+     */
     private boolean verifiedCard;
+
+    /**
+     * Method that confirms parameters entered are both present and valid.
+     * Returns a boolean.
+     * @param firstName String
+     * @param middleName String
+     * @param lastName String
+     * @param creditNumber long
+     * @param cvc long
+     * @param expDate YearMonth
+     * @return verifiedCard
+     */
     public boolean creditCheck(String firstName, String middleName, String lastName, long creditNumber, long cvc, YearMonth expDate){
         setVerifiedCard(false);
         long lowerLimit = 1000000000000000L;
@@ -29,9 +49,19 @@ public class Checkout {
 
         return verifiedCard;
     }
+
+    /**
+     * Method to set the verified card boolean
+     * @param verifiedCard boolean
+     */
     public void setVerifiedCard(boolean verifiedCard ){
         this.verifiedCard = verifiedCard;
     }
+
+    /**
+     * Method to get the verified card boolean
+     * @return verifiedCard
+     */
     public boolean getVerifiedCard(){
         return verifiedCard;
     }
