@@ -71,10 +71,9 @@ public class CheckoutController {
     private YearMonth expDate;
     private Checkout checkout = new Checkout();
     private Reservation reservation;
-    private String title = "Error";
-    private String contentText = "Payment not accepted, please try again";
     private FlightCabin flightCabin = new FlightCabin();
     private ResultSet resultSet = null;
+    private SceneController sceneController = new SceneController();
 
     /**
      * Method sets the reservation
@@ -118,21 +117,6 @@ public class CheckoutController {
 
     }
 
-    /**
-     * Method sets an Error Alert
-     * @param title
-     * @param contentText
-     */
-    public void setErrorAlert(String title, String contentText)
-    {
-        // if user doesn't select a cabin type program alerts user to try search again
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-
-    }
-
 
     /**
      * Method verifies the payment after user clicks the submit button
@@ -146,14 +130,9 @@ public class CheckoutController {
         try
         {
 //            System.out.println("Submit Button Pressed");
+
             // Gets data from the TextFields
-            fName = fnameTxt.getText();
-            mName = mNameTxt.getText();
-            lName = lNameTxt.getText();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
-            expDate = YearMonth.parse(expirationDate.getText(),formatter);
-            cvc = Long.parseLong(cvcTxt.getText());
-            creditNum = Long.parseLong(creditNumTxt.getText());
+            getTxtFieldData();
 
             // Verifies payment by calling creditCheck method
             boolean bool = checkout.creditCheck(fName, mName, lName, creditNum, cvc, expDate);
@@ -180,28 +159,28 @@ public class CheckoutController {
                 confirmationController.loadFlightTable();
                 confirmationController.loadPaxTable();
 
-                // Clears the reservations list
-                reservation.flushReservations();
-
                 // Opens the Checkout scene
                 Stage stage = new Stage();
                 stage.setTitle("Confirmation");
                 stage.setScene(scene);
                 stage.show();
 
+                // Clears the reservations list
+                reservation.flushReservations();
+
 
             }
             else // Otherwise if payment cannot be verified
             {
                 // An error alert is set
-                setErrorAlert(title, contentText);
+                Alerts.setErrorAlert("Error", "Payment not accepted, please try again");
             }
 
 
         }
         catch (NumberFormatException e)
         {
-            setErrorAlert(title, contentText);
+            Alerts.setErrorAlert("Error", "Payment not accepted, please try again");
             e.getStackTrace();
         } catch (IOException | SQLException e)
         {
@@ -210,6 +189,17 @@ public class CheckoutController {
         }
 
 
+    }
+
+    public void getTxtFieldData()
+    {
+        fName = fnameTxt.getText();
+        mName = mNameTxt.getText();
+        lName = lNameTxt.getText();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        expDate = YearMonth.parse(expirationDate.getText(),formatter);
+        cvc = Long.parseLong(cvcTxt.getText());
+        creditNum = Long.parseLong(creditNumTxt.getText());
     }
 
     /**

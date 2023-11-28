@@ -18,12 +18,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Date;
-import javafx.stage.Stage;
 
 public class SearchFlightsController {
 
@@ -100,21 +100,15 @@ public class SearchFlightsController {
     /**
      * Local Class Variables
      */
-    private Flight flight = null ;
     private ObservableList<Flight> flightList = FXCollections.observableArrayList();
-    private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-    private String connStr = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
     private int index;
-    private int mouseClickCounter = 0;
+    private boolean flightClicked = false;
     private int flightID;
     private int paxNum = 0;
     private int firstClassCabinSeats;
     private int bussClassCabinSeats;
     private int econClassCabinSeats;
-    private String title = "Error";
-    private String contentText = "Please fill out all fields and try search again";
-
     private SceneController sceneController = new SceneController();
 
     /**
@@ -122,34 +116,19 @@ public class SearchFlightsController {
      * @param str
      * @return true if blank, otherwise return false
      */
-    public Boolean checkIsStringBlank(String str)
+    public boolean checkIsStringBlank(String str)
     {
         return str.isBlank();
-
-    }
-
-    /**
-     * Method sets an Alert
-     * @param title
-     * @param contentText
-     */
-    public void setErrorAlert(String title, String contentText)
-    {
-        // if user doesn't select a cabin type program alerts user to try search again
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(contentText);
-        alert.showAndWait();
 
     }
 
 
     /**
      * Method used to refresh the data in the TableView. Calls method searchAllFlights from FlightSearcher
-     * @throws SQLException
+     * @throws NumberFormatException
      */
     @FXML
-    private void refreshTable() throws SQLException, NumberFormatException
+    public void refreshTable() throws NumberFormatException
     {
 
         try {
@@ -164,53 +143,23 @@ public class SearchFlightsController {
 
             if (checkIsStringBlank(departure)) // checks if departure text field is blank
             {
-               setErrorAlert(title, contentText);
+               Alerts.setErrorAlert("Error", "Please fill out all fields and try search again");
             }
-            else if (arrival.isBlank()) // checks to see if arrival text field is blank
+            else if (checkIsStringBlank(arrival)) // checks to see if arrival text field is blank
             {
                 // if blank program alerts user to try search again
-                setErrorAlert(title, contentText);
+                Alerts.setErrorAlert("Error", "Please fill out all fields and try search again");
             }
             else
             {
-                //if no date is specified do a general search
-                if (departureDate == null && arrivalDate == null)
-                {
-                    // creates a ResultSet using the flightSearcher object
-                    resultSet = flightSearcher.searchAllFlights(departure, arrival, paxNum);
-                    setResultSet(resultSet);
-                }
-                else
-                {
-                    resultSet = flightSearcher.searchAllFlights(departure, arrival, paxNum, departureDate, arrivalDate);
-                    setResultSet(resultSet);
-                }
+                //
+                setFlightResultSet(departureDate, arrivalDate, flightSearcher, departure, arrival);
 
                 // iterates through the resultSet
-                while (resultSet.next())
-                {
-                    // adds Flight objects to list
-                    flightList.add(new Flight(
-                            resultSet.getInt("flightID"),
-                            resultSet.getString("departureLocation"),
-                            resultSet.getString("arrivalLocation"),
-                            resultSet.getString("departureDate"),
-                            resultSet.getString("arrivalDate"),
-                            resultSet.getString("departureTime"),
-                            resultSet.getString("arrivalTime"),
-                            resultSet.getInt("currFirstSeats"),
-                            resultSet.getInt("currBusinessSeats"),
-                            resultSet.getInt("currEconomySeats")));
-                    flightsTable.setItems(flightList);
+                populateFlightList(resultSet, flightList, flightsTable);
 
-                }
-
-                // Checks to see if any flights were found given parameters
-                if (flightList.isEmpty())
-                {
-                    // if not flights program alerts user to try search again
-                    setErrorAlert(title, "No flights found with given parameters. Please try search again");
-                }
+                // checks if the flight list is empty
+                isFlightListEmpty();
             }
 
         }
@@ -224,10 +173,69 @@ public class SearchFlightsController {
             System.out.println("Forgot to add pax number! " + e);
 
             // Sets an alert if user leaves pax number empty
-            setErrorAlert(title, contentText);
+            Alerts.setErrorAlert("Error",
+                    "Please fill out all fields and try search again");
         }
 
 
+    }
+
+    /**
+     * Method checks if the flightsList is empty, if so it sets an error alert
+     */
+    public void isFlightListEmpty() {
+        // Checks to see if any flights were found given parameters
+        if (flightList.isEmpty())
+        {
+            // if not flights program alerts user to try search again
+            Alerts.setErrorAlert("Error",
+                    "No flights found with given parameters. Please try search again");
+        }
+    }
+
+    /**
+     * Method
+     * @param resultSet
+     * @param flightList
+     * @param flightsTable
+     * @throws SQLException
+     */
+    public void populateFlightList(ResultSet resultSet, ObservableList<Flight> flightList,
+                                   TableView<Flight> flightsTable) throws SQLException
+    {
+        while (resultSet.next())
+        {
+            // adds Flight objects to list
+            flightList.add(new Flight(
+                    resultSet.getInt("flightID"),
+                    resultSet.getString("departureLocation"),
+                    resultSet.getString("arrivalLocation"),
+                    resultSet.getString("departureDate"),
+                    resultSet.getString("arrivalDate"),
+                    resultSet.getString("departureTime"),
+                    resultSet.getString("arrivalTime"),
+                    resultSet.getInt("currFirstSeats"),
+                    resultSet.getInt("currBusinessSeats"),
+                    resultSet.getInt("currEconomySeats")));
+            flightsTable.setItems(flightList);
+
+        }
+    }
+
+    public void setFlightResultSet(LocalDate departureDate, LocalDate arrivalDate,
+                                   FlightSearcher flightSearcher, String departure, String arrival)
+    {
+        //if no date is specified do a general search
+        if (departureDate == null && arrivalDate == null)
+        {
+            // sets the ResultSet using the flightSearcher object
+            this.resultSet = flightSearcher.searchAllFlights(departure, arrival, paxNum);
+        }
+        else
+        {
+            // sets the ResultSet using the flightSearcher object
+            this.resultSet = flightSearcher.searchAllFlights(departure, arrival, paxNum, departureDate, arrivalDate);
+        }
     }
 
     /**
@@ -235,7 +243,7 @@ public class SearchFlightsController {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private void loadFlightTable() throws SQLException
+    public void loadFlightTable() throws SQLException
     {
         // Refreshes the TableView
         refreshTable();
@@ -254,7 +262,6 @@ public class SearchFlightsController {
         flightsTable.setItems(flightList);
 
     }
-
 
 
     /**
@@ -291,8 +298,8 @@ public class SearchFlightsController {
         bussClassCabinSeats = bussClassCol.getCellData(index);
         econClassCabinSeats = econClassCol.getCellData(index);
 
-        // keeps track of how many times flight object in TableView is clicked
-        mouseClickCounter++;
+        // keeps track if a flight object in TableView is clicked
+        flightClicked = true;
 
     }
 
@@ -305,8 +312,9 @@ public class SearchFlightsController {
 
     @FXML
     void clickSelectFlightButton(ActionEvent event) throws IOException {
-        if(mouseClickCounter > 0)
+        if(flightClicked)
         {
+
             // Closes the current scene
             Node node = (Node) event.getSource();
             Stage primaryStage = (Stage) node.getScene().getWindow();
@@ -320,29 +328,39 @@ public class SearchFlightsController {
             PassengerInfoController paxInfoController = fxmlLoader.getController();
 
             // Passes the selected number of pax, flightID, and no. of cabin seats to the PassengerInfoController
-            paxInfoController.setPaxNum(paxNum);
-            paxInfoController.setFlightID(flightID);
-            paxInfoController.setFirstSeats(firstClassCabinSeats);
-            paxInfoController.setBussSeats(bussClassCabinSeats);
-            paxInfoController.setEconSeats(econClassCabinSeats);
+            passInfoToNextScene(paxInfoController);
 
-            // Checks to see if there are available seats for ech cabin type
-            // if not it hides button for respective cabin
-            if (firstClassCabinSeats == 0)
-                paxInfoController.getFirstClassCabinButton().setVisible(false);
-            if (bussClassCabinSeats == 0)
-                paxInfoController.getBussClassCabinButton().setVisible(false);
-            if (econClassCabinSeats == 0)
-                paxInfoController.getEconClassCabinButton().setVisible(false);
+            // Checks to see if there are available seats for each cabin type
+            // if not it hides button for respective cabin in the passengerInfo_view.fxml
+            buttonHider(paxInfoController);
 
             // Opens the PassengerInfo scene
             Stage stage = new Stage();
             stage.setTitle("Passenger Information");
             stage.setScene(scene);
             stage.show();
+
         }
 
     }
+
+    public void passInfoToNextScene(PassengerInfoController paxInfoController) {
+        paxInfoController.setPaxNum(paxNum);
+        paxInfoController.setFlightID(flightID);
+        paxInfoController.setFirstSeats(firstClassCabinSeats);
+        paxInfoController.setBussSeats(bussClassCabinSeats);
+        paxInfoController.setEconSeats(econClassCabinSeats);
+    }
+
+    public void buttonHider(PassengerInfoController paxInfoController) {
+        if (firstClassCabinSeats == 0)
+            paxInfoController.getFirstClassCabinButton().setVisible(false);
+        if (bussClassCabinSeats == 0)
+            paxInfoController.getBussClassCabinButton().setVisible(false);
+        if (econClassCabinSeats == 0)
+            paxInfoController.getEconClassCabinButton().setVisible(false);
+    }
+
     @FXML
     public void clickCancelFlights(ActionEvent event) throws IOException {
        sceneController.switchScene(event, "cancelFlights_view.fxml", "Cancel Flights");
@@ -358,7 +376,4 @@ public class SearchFlightsController {
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 
-    public void setResultSet(ResultSet resultSet){
-        this.resultSet = resultSet;
-    }
 }

@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -68,8 +69,8 @@ public class PassengerInfoController {
     private LocalDate dateOfBirth;
     private int paxLabelCounter = 1;
     private Reservation reservation = new Reservation();
-    private FlightCabin flightCabin;
     private boolean cabinSelected = false;
+    private SceneController sceneController = new SceneController();
 
     /**
      * Some setters for the cabin class seats
@@ -122,7 +123,7 @@ public class PassengerInfoController {
      * @param cabinID
      */
 
-    private void setCurrCabinID(int cabinID){
+    public void setCurrCabinID(int cabinID){
         this.cabinID = cabinID;
     }
 
@@ -208,21 +209,6 @@ public class PassengerInfoController {
     }
 
 
-    /**
-     * Method sets an Error Alert
-     * @param title
-     * @param contentText
-     */
-    public void setErrorAlert(String title, String contentText)
-    {
-        // if user doesn't select a cabin type program alerts user to try search again
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-
-    }
-
 
     /**
      * This method stores pax reservation info and adds the info into a list after the submit button is clicked
@@ -230,9 +216,6 @@ public class PassengerInfoController {
      */
     @FXML
     void clickSubmit(ActionEvent event) throws IOException, NullPointerException, SQLException {
-
-        String title = "Error";
-        String contentText = "Please fill out all fields";
 
         // Set the scene label/title
         paxNumLabel.setText(String.valueOf(paxLabelCounter));
@@ -245,65 +228,17 @@ public class PassengerInfoController {
                 if (cabinSelected) // checks if a cabin type was selected
                 {
                     // Gets all the data from the text fields
-                    firstName = fNameTxt.getText();
-                    lastName = lNameTxt.getText();
-                    dateOfBirth = dobDatePicker.getValue();
-                    phoneNum = pNumTxt.getText();
-                    address = addressTxt.getText();
-                    email = emailTxt.getText();
-                    cabinID = getCurrCabinID();
+                    getDataFromTextFields();
 
                     // checks to make sure no text field is left blank, if so it sets an alert for the user
-                    if(checkIsStringBlank(firstName))
-                        setErrorAlert(title, contentText);
-                    else if (checkIsStringBlank(lastName))
-                        setErrorAlert(title, contentText);
-                    else if (checkIsStringBlank(phoneNum))
-                        setErrorAlert(title, contentText);
-                    else if (checkIsStringBlank(email))
-                        setErrorAlert(title, contentText);
-                    else
-                    {
-                        // Adds reservation data into a list
-                        reservation.addReservation(flightID, cabinID, firstName, lastName, dateOfBirth, phoneNum, address, email);  // We would replace cabinID here with getCurrcabinID()
-
-                        // decrements amount of seats available for respective cabin type
-                        cabinSeatDecrementer(cabinID);
-
-                        // hides cabin button with no seats available
-                        cabinButtonHider();
-
-                        // Clears all the text fields
-                        fNameTxt.clear();
-                        lNameTxt.clear();
-                        dobDatePicker.setValue(null);
-                        pNumTxt.clear();
-                        addressTxt.clear();
-                        emailTxt.clear();
-
-                        // Update the scene label/title
-                        paxLabelCounter++;
-
-                        // Set the scene label/title
-                        paxNumLabel.setText(String.valueOf(paxLabelCounter));
-
-                        // decrease number of pax left to enter info
-                        paxNum--;
-
-                        // reset cabinSelection
-                        cabinSelected = false;
-
-                        // Print Test to see if pax reservation info is being added to list
-//                        reservation.printResList(reservation.getReservations());
-
-                    }
+                    // if not adds reservation object to the reservations list
+                    addResIfNoBlanks();
 
                 }
                 else
                 {
                     // Sets an alert if user has not selected a cabin type
-                    contentText = "Please select a cabin type";
-                    setErrorAlert(title, contentText);
+                    Alerts.setErrorAlert("Error", "Please select a cabin type");
                 }
 
             }
@@ -312,13 +247,101 @@ public class PassengerInfoController {
         catch (NullPointerException e)
         {
             // Sets an Alert if Datepicker is left blank (null)
-            setErrorAlert(title, contentText);
+            Alerts.setErrorAlert("Error", "Please fill out all fields");
             e.getStackTrace();
         }
 
+        // If no more pax to add, switches to the CheckoutScene
+        nextScene(event);
 
+    }
+
+    /**
+     * Method get the data entered in the text fields entered by the user
+     * and stores it in variables
+     */
+    public void getDataFromTextFields()
+    {
+        firstName = fNameTxt.getText();
+        lastName = lNameTxt.getText();
+        dateOfBirth = dobDatePicker.getValue();
+        phoneNum = pNumTxt.getText();
+        address = addressTxt.getText();
+        email = emailTxt.getText();
+        cabinID = getCurrCabinID();
+    }
+
+    /**
+     * Method checks if there are no text fields left blank, if so it displays an error
+     * alert, otherwise it creates a reservation object and adds it to the reservations list
+     */
+    public void addResIfNoBlanks ()
+    {
+        String title = "Error";
+        String contentText = "Please fill out all fields";
+
+        if(checkIsStringBlank(firstName))
+            Alerts.setErrorAlert(title, contentText);
+        else if (checkIsStringBlank(lastName))
+            Alerts.setErrorAlert(title, contentText);
+        else if (checkIsStringBlank(phoneNum))
+            Alerts.setErrorAlert(title, contentText);
+        else if (checkIsStringBlank(email))
+            Alerts.setErrorAlert(title, contentText);
+        else
+        {
+            // Adds reservation data into a list
+               reservation.addReservation(flightID, cabinID, firstName, lastName,
+                       dateOfBirth, phoneNum, address, email);
+               updateScene();
+
+            // Print Test to see if pax reservation info is being added to list
+//                        reservation.printResList(reservation.getReservations());
+        }
+    }
+
+    /**
+     * Method updates the components of the scene
+     */
+    public void updateScene() {
+        // decrements amount of seats available for respective cabin type
+        cabinSeatDecrementer(cabinID);
+
+        // hides cabin button with no seats available
+        cabinButtonHider();
+
+        // Clears all the text fields
+        fNameTxt.clear();
+        lNameTxt.clear();
+        dobDatePicker.setValue(null);
+        pNumTxt.clear();
+        addressTxt.clear();
+        emailTxt.clear();
+
+        // Update the scene label/title
+        paxLabelCounter++;
+
+        // Set the scene label/title
+        paxNumLabel.setText(String.valueOf(paxLabelCounter));
+
+        // decrease number of pax left to enter info
+        paxNum--;
+
+        // reset cabinSelection
+        cabinSelected = false;
+    }
+
+    /**
+     * Method switches to the next scene if there are no more passengers to enter
+     * information for
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
+    public void nextScene(ActionEvent event) throws SQLException, IOException {
         if (paxNum == 0) // if no more pax
         {
+
             // Closes the current scene
             Node node = (Node) event.getSource();
             Stage primaryStage = (Stage) node.getScene().getWindow();
@@ -340,9 +363,8 @@ public class PassengerInfoController {
             stage.setTitle("Checkout");
             stage.setScene(scene);
             stage.show();
+
         }
-
-
     }
 
 

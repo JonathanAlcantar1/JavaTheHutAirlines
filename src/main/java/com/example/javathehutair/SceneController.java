@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SceneController {
-    public void switchScene(ActionEvent event, String fxml, String title) throws IOException{
+
+        public void switchScene(ActionEvent event, String fxml, String title) throws IOException{
             //closing the current stage
             Node node = (Node) event.getSource();
             Stage primaryStage = (Stage) node.getScene().getWindow();
@@ -22,5 +23,6 @@ public class SceneController {
             stage.setTitle(title);
             stage.setScene(scene);
             stage.show();
-    }
+        }
+
 }

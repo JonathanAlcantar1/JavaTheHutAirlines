@@ -102,28 +102,38 @@ public class ConfirmationController
             // sets the resultSet
             setResultSet(resultSet);
 
-            // Iterates through the resultSet
-            while (resultSet.next())
-            {
-                // Adds new Passenger object into paxList
-                paxList.add(new Passenger(reservation.getReservationList().get(i).getFirstName(),
-                        reservation.getReservationList().get(i).getLastName(),
-                        resultSet.getString("reservationID"),
-                        returnCabinStr(reservation.getReservationList().get(i).getClassID())));
-                paxTable.setItems(paxList);
-
-            }
+            populatePaxList(i);
 
         }
 
         // Populates the cells from the paxTable
+        loadPaxTableCells();
+
+
+    }
+
+    private void loadPaxTableCells()
+    {
         paxFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
         paxLastNameCol.setCellValueFactory(new PropertyValueFactory<>("LastName"));
         resIDCol.setCellValueFactory(new PropertyValueFactory<>("ReservationID"));
         cabinTypeCol.setCellValueFactory(new PropertyValueFactory<>("CabinType"));
         paxTable.setItems(paxList);
+    }
 
+    private void populatePaxList(int index) throws SQLException
+    {
+        // Iterates through the resultSet
+        while (resultSet.next())
+        {
+            // Adds new Passenger object into paxList
+            paxList.add(new Passenger(reservation.getReservationList().get(index).getFirstName(),
+                    reservation.getReservationList().get(index).getLastName(),
+                    resultSet.getString("reservationID"),
+                    returnCabinStr(reservation.getReservationList().get(index).getClassID())));
+            paxTable.setItems(paxList);
 
+        }
     }
 
     /**
@@ -141,10 +151,7 @@ public class ConfirmationController
             populateFlightList(resultSet, flightList, flightTable);
 
             // loads up the cells in the TableView
-            loadFlightTableCells(flightIDCol, depLocCol, arrLocCol, depDateCol, arrDateCol,
-                    depTimeCol, arrTimeCol);
-
-            flightTable.setItems(flightList);
+            loadFlightTableCells();
 
         }
         catch(SQLException e)
@@ -160,7 +167,7 @@ public class ConfirmationController
      * @param flightTable
      * @throws SQLException
      */
-    public static void populateFlightList(ResultSet resultSet, ObservableList<Flight> flightList,
+    public void populateFlightList(ResultSet resultSet, ObservableList<Flight> flightList,
                                               TableView<Flight> flightTable) throws SQLException
     {
         while (resultSet.next())
@@ -173,10 +180,7 @@ public class ConfirmationController
                     resultSet.getString("departureDate"),
                     resultSet.getString("arrivalDate"),
                     resultSet.getString("departureTime"),
-                    resultSet.getString("arrivalTime"),
-                    resultSet.getInt("currFirstSeats"),
-                    resultSet.getInt("currBusinessSeats"),
-                    resultSet.getInt("currEconomySeats")));
+                    resultSet.getString("arrivalTime")));
             flightTable.setItems(flightList);
 
         }
@@ -184,18 +188,8 @@ public class ConfirmationController
 
     /**
      * Method is used to populate the cells from the flightTable
-     * @param flightIDCol
-     * @param depLocCol
-     * @param arrLocCol
-     * @param depDateCol
-     * @param arrDateCol
-     * @param depTimeCol
-     * @param arrTimeCol
      */
-    public static void loadFlightTableCells(TableColumn<Flight, Integer> flightIDCol, TableColumn<Flight, String> depLocCol,
-                                 TableColumn<Flight, String> arrLocCol, TableColumn<Flight, Date> depDateCol,
-                                 TableColumn<Flight, Date> arrDateCol, TableColumn<Flight, Date> depTimeCol,
-                                 TableColumn<Flight, Date> arrTimeCol)
+    public void loadFlightTableCells()
     {
         flightIDCol.setCellValueFactory(new PropertyValueFactory<>("flightID"));
         depLocCol.setCellValueFactory(new PropertyValueFactory<>("departureLocation"));
@@ -204,6 +198,7 @@ public class ConfirmationController
         arrDateCol.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
         depTimeCol.setCellValueFactory(new PropertyValueFactory<>("departureTime"));
         arrTimeCol.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+        flightTable.setItems(flightList);
     }
 
     /**

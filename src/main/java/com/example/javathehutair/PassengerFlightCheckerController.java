@@ -4,16 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,9 +16,8 @@ import java.util.Date;
 public class PassengerFlightCheckerController {
     private SceneController sceneController = new SceneController();
     private ObservableList<Reservation> passengerList = FXCollections.observableArrayList();
-    private String title = "Error";
-    private String contentText = "Please fill out all fields and try search again";
     private ResultSet resultSet = null;
+
     @FXML
     private TextField arrTxtField;
     @FXML
@@ -64,22 +57,13 @@ public class PassengerFlightCheckerController {
         sceneController.switchScene(event, "aboutUs_view.fxml", "About Us");
     }
 
-    public void setErrorAlert(String title, String contentText)
-    {
-        // if user doesn't select a cabin type program alerts user to try search again
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-
-    }
 
     /**
      * Method used to refresh the data in the TableView. Calls method searchAllFlights from FlightSearcher
      * @throws SQLException
      */
     @FXML
-    private void refreshTable() throws SQLException, NumberFormatException
+    private void refreshTable() throws NumberFormatException
     {
 
         try {
@@ -94,7 +78,8 @@ public class PassengerFlightCheckerController {
             if (String.valueOf(arrival).isBlank()) // checks to see if arrival text field is blank
             {
                 // if blank program alerts user to try search again
-                setErrorAlert(title, contentText);
+                Alerts.setErrorAlert("Error",
+                        "Please fill out all fields and try search again");
             }
 
             else
@@ -124,7 +109,8 @@ public class PassengerFlightCheckerController {
                 if (passengerList.isEmpty())
                 {
                     // if not flights program alerts user to try search again
-                    setErrorAlert(title, "No flights found with given parameters. Please try search again");
+                    Alerts.setErrorAlert("Error",
+                            "No flights found with given parameters. Please try search again");
                 }
             }
 
@@ -139,7 +125,8 @@ public class PassengerFlightCheckerController {
             System.out.println("Forgot to add pax number! " + e);
 
             // Sets an alert if user leaves pax number empty
-            setErrorAlert(title, contentText);
+            Alerts.setErrorAlert("Error",
+                    "Please fill out all fields and try search again");
         }
 
 

@@ -49,19 +49,19 @@ public class CancelFlightsController {
             setReservationID(reservationTxt.getText());
             setLastName(lastNameTxt.getText());
             Reservation reservation = new Reservation();
+
             //cancels reservation if ID and name combo are valid
             reservation.cancelReservation(getReservationID(), getLastName());
+
             //success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setContentText("Reservation Successfully Cancelled");
+            Alerts.setSuccessAlert("Success!",
+                    "Reservation Successfully Cancelled");
+
         }
         //If data is not in the database an error window will appear
         catch (SQLException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Input");
-            alert.setContentText("Reservation ID and Last Name not recognized");
-            alert.showAndWait();
+            Alerts.setErrorAlert("Invalid Input",
+                    "Reservation ID and Last Name not recognized");
         }
     }
     //Opens SearchFlight page when clicked on sidebar
