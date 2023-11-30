@@ -7,6 +7,7 @@
 
 package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.Alerts;
 import com.example.javathehutair.checkout.Checkout;
 import com.example.javathehutair.flight.FlightSearcher;
 import com.example.javathehutair.MainApplication;

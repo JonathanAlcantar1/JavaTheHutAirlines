@@ -1,5 +1,6 @@
 package com.example.javathehutair;
 
+import com.example.javathehutair.checkout.Checkout;
 import org.junit.jupiter.api.Test;
 
 import java.time.YearMonth;
