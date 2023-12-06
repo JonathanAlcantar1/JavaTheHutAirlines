@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.Controllers.CheckoutController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.Controllers.CheckoutController">
    <children>
       <VBox prefHeight="720.0" prefWidth="216.0" style="-fx-background-color: #2E5A88;">
          <children>
@@ -103,5 +104,10 @@
          </font>
       </Label>
       <TextField fx:id="expirationDate" layoutX="601.0" layoutY="413.0" prefHeight="26.0" prefWidth="104.0" promptText="MM/YY" />
+      <ImageView fx:id="home" fitHeight="52.0" fitWidth="104.0" layoutX="1177.0" layoutY="654.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/home.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@
 
 package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.MainApplication;
 import com.example.javathehutair.flight.Flight;
 import com.example.javathehutair.flight.FlightSearcher;
 import com.example.javathehutair.passenger.Passenger;
@@ -14,16 +15,24 @@ import com.example.javathehutair.Reservation.Reservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
 public class ConfirmationController
 {
+    @FXML
+    private ImageView home;
 
     @FXML
     private TableView<Passenger> paxTable;
@@ -231,4 +240,17 @@ public class ConfirmationController
     public void setResultSet(ResultSet resultSet){
         this.resultSet = resultSet;
     }
-}
+
+    @FXML
+    void goHome(MouseEvent event) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
+        Stage stage = new Stage();
+        stage.setTitle("Search Flights");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    }

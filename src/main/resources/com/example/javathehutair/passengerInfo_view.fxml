@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.Controllers.PassengerInfoController">
+<AnchorPane prefHeight="700.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javathehutair.Controllers.PassengerInfoController">
    <children>
       <Label layoutX="391.0" layoutY="14.0" prefHeight="66.0" prefWidth="522.0" text="Passenger    Information" textFill="#2e5a88">
          <font>
@@ -70,7 +70,7 @@
             <Font name="Elephant" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="paxNumLabel" layoutX="579.0" layoutY="22.0" text="1" textFill="#2e5a88">
+      <Label fx:id="paxNumLabel" layoutX="611.0" layoutY="21.0" text="1" textFill="#2e5a88">
          <font>
             <Font name="Elephant" size="41.0" />
          </font>
@@ -116,5 +116,10 @@
             </Button>
          </children>
       </VBox>
+      <ImageView fx:id="home" fitHeight="57.0" fitWidth="68.0" layoutX="1172.0" layoutY="649.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/home.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

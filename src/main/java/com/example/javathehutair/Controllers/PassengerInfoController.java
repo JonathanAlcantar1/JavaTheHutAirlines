@@ -7,6 +7,7 @@
 
 package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.Alerts;
 import com.example.javathehutair.MainApplication;
 import com.example.javathehutair.Reservation.Reservation;
 import com.example.javathehutair.flight.FlightCabin;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,6 +62,9 @@ public class PassengerInfoController {
 
     @FXML
     private ImageView logoImage;
+
+    @FXML
+    private ImageView home;
 
     /**
      * Local Class Variables
@@ -370,5 +375,77 @@ public class PassengerInfoController {
         }
     }
 
+    /**
+     * Refactored methods for Testing
+     */
+    public int cabinSeatDecrementer(int cabinID, int firstClassSeats,
+                                    int bussClassSeats, int econClassSeats)
+    {
+        int cabinSeats = 0;
 
+        if (cabinID == 11 &&
+                firstClassSeats != 0)
+            return cabinSeats = firstClassSeats - 1;
+        else if (cabinID == 22
+                && bussClassSeats != 0)
+            return cabinSeats = bussClassSeats - 1;
+        else if (cabinID == 33
+                && econClassSeats != 0)
+            return cabinSeats = econClassSeats - 1;
+
+        return -1;
+    }
+
+    public String cabinButtonHider(int firstClassSeats, int bussClassSeats, int econClassSeats)
+    {
+        String str = " ";
+        if (firstClassSeats == 0)
+            str = str + "No first Class seats available, ";
+        if (bussClassSeats == 0)
+            str = str + "No Business Class seats available, ";
+        if(econClassSeats == 0)
+            str = str + "No Economy Class Seats available, ";
+
+        return str;
+    }
+
+    public boolean addResIfNoBlanks (String firstName, String lastName, String phoneNum, String email) {
+
+        if (checkIsStringBlank(firstName))
+            return false;
+        else if (checkIsStringBlank(lastName))
+            return false;
+        else if (checkIsStringBlank(phoneNum))
+            return false;
+        else if (checkIsStringBlank(email))
+            return false;
+        else
+        {
+            // Returns true and adds reservation to the list;
+            reservation.addReservation(flightID, cabinID, firstName, lastName,
+                    dateOfBirth, phoneNum, address, email);
+            return true;
+        }
+
+    }
+
+    @FXML
+    void goHome(MouseEvent event) throws IOException
+    {
+        // Closes the current scene
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+        primaryStage.hide();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
+        Stage stage = new Stage();
+        stage.setTitle("Search Flights");
+        stage.setScene(scene);
+        stage.show();
+
+        // Clears the reservations list
+        reservation.flushReservations();
+
+    }
 }

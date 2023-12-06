@@ -7,6 +7,7 @@
 
 package com.example.javathehutair.Controllers;
 
+import com.example.javathehutair.Alerts;
 import com.example.javathehutair.checkout.Checkout;
 import com.example.javathehutair.flight.FlightSearcher;
 import com.example.javathehutair.MainApplication;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -65,6 +67,9 @@ public class CheckoutController {
 
     @FXML
     private Label totalLabel;
+
+    @FXML
+    private ImageView home;
 
 
     /**
@@ -212,5 +217,26 @@ public class CheckoutController {
      */
     public void setResultSet(ResultSet resultSet){
         this.resultSet = resultSet;
+    }
+
+    @FXML
+    void goHome(MouseEvent event) throws IOException
+    {
+
+        // Closes the current scene
+        Node node = (Node) event.getSource();
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+        primaryStage.hide();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("searchFlights_view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1243, 720);
+        Stage stage = new Stage();
+        stage.setTitle("Search Flights");
+        stage.setScene(scene);
+        stage.show();
+
+        // Clears the reservations list
+        reservation.flushReservations();
+
     }
 }
