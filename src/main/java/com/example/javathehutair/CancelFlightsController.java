@@ -35,9 +35,9 @@ public class CancelFlightsController {
     /* local variables */
     private String reservationID;
     private String lastName;
-    private String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private String username = "admin";
-    private String password = "!Javathehut23";
+    private String url = "URL";
+    private String username = "USER";
+    private String password = "PASS";
 
     @FXML
     public void clickSubmit(ActionEvent event) throws SQLException {
