@@ -31,7 +31,7 @@ public class FlightSearcher
         ResultSet resultSet = null;
         try {
             //open a database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase", "admin", "!Javathehut23");
+            Connection connection = DriverManager.getConnection("URL", "USER", "PASS");
             //sql statement to execute with prepared statement
             preparedStatement = connection.prepareStatement(sql);
             //passing parameters into the sql statement
