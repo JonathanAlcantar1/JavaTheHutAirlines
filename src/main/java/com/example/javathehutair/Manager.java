@@ -3,9 +3,9 @@ package com.example.javathehutair;
 import java.sql.*;
 
 public class Manager {
-    private final String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private final String username = "admin";
-    private final String password = "!Javathehut23";
+    private final String url = "URL";
+    private final String username = "USER";
+    private final String password = "PASS";
     private Connection connection;
     private String query;
     private PreparedStatement preparedStatement;
