@@ -12,9 +12,9 @@ public class Reservation
     private String query;
     private List<Reservation> reservations = new ArrayList<>();
     private FlightCabin currSeat = new FlightCabin();
-    private String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private String username = "admin";
-    private String password = "!Javathehut23";
+    private String url = "URL";
+    private String username = "USER";
+    private String password = "PASSWORD";
     // Added url,username,password to be passed into getConnection() --> just to make it look less crowded
     private Connection connection;
     private PreparedStatement preparedStatement;
