@@ -11,9 +11,9 @@ public class FlightCabin
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet result = null;
-    private final String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    private final String username = "admin";
-    private final String password = "!Javathehut23";
+    private final String url = "URL";
+    private final String username = "USER";
+    private final String password = "PASS";
 
     // These three getters will mostly be used to return current available seats based on their cabins & can be found with a flightID
     public int getCurrEconomySeat(int flightID) throws SQLException {
