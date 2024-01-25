@@ -98,7 +98,7 @@ public class SearchFlightsController {
     private ObservableList<Flight> flightList = FXCollections.observableArrayList();
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-    private String connStr = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
+    private String connStr = "USER";
     private int index;
     private int mouseClickCounter = 0;
     private int flightID;
