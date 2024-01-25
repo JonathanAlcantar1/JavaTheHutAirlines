@@ -8,9 +8,9 @@ public class dbConnector {
     /**
      * Local Class Variables
      */
-    protected String url = "jdbc:mysql://airlinedatabase.ceof6ckatc9m.us-east-2.rds.amazonaws.com:3306/airlineDatabase";
-    protected String user = "admin";
-    protected String pass = "!Javathehut23";
+    protected String url = "URL";
+    protected String user = "USER";
+    protected String pass = "PASS";
     /**
      * Method connects to hosted database via URL, USER, PASSWORD
      * @return Connection
